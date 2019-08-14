@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移除事件</title>
+</head>
+<body>
+	<input type="button" value="按钮" id="btn">
+
+	<script type="text/javascript">
+		var btn = document.getElementById('btn');
+		// btn.onclick = function () {
+		// 	alert('hello yang');
+		// 	//移除事件
+		// 	btn.onclick = null;
+		// }
+
+
+		//如果想要移除事件，注册事件的时候不能使用匿名函数
+		// btn.addEventListener('click', function () {
+		// 	alert('hello yang');
+		// 	//移除事件
+		// 	btn.removeEventListener('click', )
+		// })
+
+		// function btnClick () {
+		// 	alert('hello yang');
+		// 	//移除事件
+		// 	btn.removeEventListener('click', btnClick);
+		// }
+		// btn.addEventListener('click', btnClick);
+
+
+		function btnClick () {
+			alert('hello yang');
+			//移除事件
+			btn.detachEvent('onclick', btnClick);
+		}
+		btn.attachEvent('onclick', btnClick);
+	</script>
+</body>
+</html>

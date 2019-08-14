@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>关于Left的和Top的问题</title>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+		div {
+			width: 200px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+			left: 100px;
+			top: 100px;
+		}
+	</style>
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#btn').click(function () {
+				//获取left和top的值
+				// console.log($('#dv').offset().left);
+				// console.log($('#dv').offset().top);
+
+				//设置left和top的值
+				$('#dv').offset({'left':200,'top':200});
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" value="显示效果" id="btn">
+	<div id="dv"></div>
+</body>
+</html>

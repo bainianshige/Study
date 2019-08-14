@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步演示</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			var btn = document.getElementById('btn');
+			btn.onclick = function () {
+				var xhr = new XMLHttpRequest();
+				xhr.open('get', '异步演示.php');
+				xhr.send(null);
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var data = xhr.responseText;
+						var obj = JSON.parse(data);
+						var tag = '<div><span></span>'+ obj.info +'<span>---------</span><span>'+ obj.message +'</span></div>'
+						var info = document.getElementById('info');
+						info.innerHTML = tag;
+					};
+				};
+			};
+		};
+	</script>
+</head>
+<body>
+	<div id="info"></div>
+	<input type="button" value="点击" id="btn">
+</body>
+</html>

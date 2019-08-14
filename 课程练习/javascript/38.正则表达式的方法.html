@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式的方法</title>
+</head>
+<body>
+	
+
+	<script type="text/javascript">
+		//跟正则表达式相关的方法
+		//1.RegExp对象提供的两个方法  test(匹配)  exec(提取)
+		//2.String对象提供的方法      match(提取：可以提取多个内容)    replace(替换)   split(切割)  search(查找)
+
+
+		//exec演示
+		// var str = 'zs: 2500, ls: 3000, ww: 50000';
+		// var regularExpression = /\d+/g;
+
+		//exec() 只返回一个匹配的结果
+		// var content = regularExpression.exec(str);
+		// console.log(content);
+
+		// do {
+		// 	var content = regularExpression.exec(str);
+		// 	if (content) {
+		// 		console.log(content[0]);
+		// 	}
+		// } while (content);
+
+
+		//match演示
+		// var str = 'zs: 2500, ls: 3000, ww: 50000';
+		// var regularExpression = /\d+/g;
+		// //提取多个内容
+		// console.log(str.match(regularExpression));
+
+
+		//分组提取
+		//提取日期中的年部分  2015-5-10
+		// var dateStr = '2015-1-5';
+
+		//正则表达式的方法
+		// var reg = /(\d{4})-(\d{1,2})-(\d{1,2})/;
+
+		// reg.test(dateStr);
+		// reg.exec(dateStr);
+		// dateStr.match(reg);
+
+		// console.log(RegExp.$1);
+		// console.log(RegExp.$2);
+		// console.log(RegExp.$3);
+
+
+		//字符串的split()的方法
+		// console.log(dateStr.split('-'));
+
+
+
+		//字符串的替换
+		//替换所有的空白
+		// var str = '     aldkaskl   fhkshf     faksh  da';
+		// console.log(str.split(' ').join(''));
+
+		//把所有的，和,替换成.
+		var str = 'abc,asfsa,232，das,112,12,1'
+
+		console.log(str.replace(/[,|，]/g, '.'));
+	</script>
+</body>
+</html>

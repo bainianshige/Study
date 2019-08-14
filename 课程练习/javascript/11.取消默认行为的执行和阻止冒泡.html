@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>取消默认行为的执行和阻止冒泡</title>
+</head>
+<body>
+	<a href="http://www.baidu.com" id="link">baidu</a>
+
+	<script>
+		var link = document.getElementById('link');
+		link.onclick = function (e) {
+			alert('hello yang');
+
+			//取消默认行为执行
+			// return false;
+
+
+			//DOM标准方法
+			e.preventDefault();
+
+			//IE的老版本，非标准方式
+			e.returnValue = false;
+		}
+	</script>
+</body>
+</html>

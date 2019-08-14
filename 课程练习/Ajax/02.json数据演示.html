@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript">
+		//对象
+		//json数据和普通的js对象的区别：
+			//1.json数据没有变量
+			//2.json形式的数据结尾没有分号
+			//3.json数据中的key(键)必须用双引号包住
+			// var obj = {
+			// 	name : 'zhangsan',
+			// 	age : 12,
+			// 	lover : ['coding', 'singing', 'dancing'],
+			// 	friend : {
+			// 		high : '180cm',
+			// 		wight : '80kg',
+			// 	}
+			// };
+
+		window.onload = function () {
+			var btn = document.getElementById('btn');
+			btn.onclick = function () {
+				var usn = document.getElementById('username').value;
+				var paw = document.getElementById('password').value;
+				var xhr = new XMLHttpRequest();
+				var param = 'username=' + usn + '&password=' + paw;
+				xhr.open('post', 'json文件接口演示.php', true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.send(param);
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						var data = xhr.responseText;
+						var d = JSON.parse(data);
+						console.log(d.name1);
+						// var d = JSON.parse(data);
+						// var info = document.getElementById('info');
+						// console.log(d.friend.wight);
+						// if (data == 1) {
+						// 	info.innerHTML = '登录成功';
+						// } else if (data == 2) {
+						// 	info.innerHTML = '账号或密码错误';
+						// };
+					};
+				}; 
+			};
+		};
+
+
+	</script>
+</head>
+<body>
+	<form>
+		用户名：<input type="text" id="username"><br>
+		密码：<input type="text" id="password"><br>
+		<input type="button" value="登录" id="btn"><span id="info"></span>
+	</form>
+</body>
+</html>

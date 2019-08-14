@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全国天气预报案例</title>
+	<style type="text/css" media="screen">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		li {
+			list-style: none;
+		}
+		body {
+			background-color: #f0f0f0;
+		}
+		.container {
+			width: 500px;
+			min-height: 300px;
+			background-color: #fff;
+			margin: 10px auto;
+		}
+		.w {
+			width: 500px;
+			min-height: 300px;
+			margin: 0 auto;
+			background-color: skyblue;
+			overflow: hidden;
+		}
+		.header {
+			margin-bottom: 10px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid #eee;
+		}
+		.headerText {
+			text-align: center;
+			font-size: 26px;
+
+		}
+		.headerInput {
+			/* margin: 10px 118px; */
+			position: relative;
+			height: 30px;
+		}
+		#headerGet {
+			position: absolute;
+			left: 50%;
+			margin-left: -110px;
+			height: 16px;
+		}
+		.lists {
+			background-color: #e0e0e0;
+		}
+
+		#btn {
+			position: absolute;
+			font-size: 12px;
+			left: 50%;
+			margin-left: 60px;
+			/* height: 20px; */
+			vertical-align: 5%;
+		}
+	</style>
+	<script src="jquery-3.4.1.js"></script>
+	<script src="template-web.js"></script>
+	<script>
+		$(function () {
+			//按下查询天气向服务器发送请求
+			getData();
+			$('#btn').click(function () {
+				var param = $('#headerGet').val();
+				getData(param)
+				// $.ajax({
+				// 	type: 'get',
+				// 	// url: 'https://api.jisuapi.com/weather/query?appkey=eee8cacbc1e612cd',
+				// 	url: 'https://api.jisuapi.com/weather/query',
+				// 	data: {appkey:'eee8cacbc1e612cd',city: param},
+				// 	dataType: 'jsonp',
+				// 	jsonp: 'callback',
+				// 	success: function(json){
+				// 		console.log(json);
+				// 	}
+				// });
+				// console.log(get);
+			});
+			function getData(param) {
+				var param = param ? param : '杭州';
+				$.ajax({
+					type: 'get',
+					// url: 'https://api.jisuapi.com/weather/query?appkey=eee8cacbc1e612cd',
+					url: 'https://api.jisuapi.com/weather/query',
+					data: {appkey:'eee8cacbc1e612cd',city:param},
+					dataType: 'jsonp',
+					jsonp: 'callback',
+					success: function(json){
+						// console.log(json);
+						var html = template('tmplt', json);
+						$('#ulLists').html(html);
+					}
+				});
+			}
+		});
+	</script>
+</head> 
+<body>
+	<div class="container">
+		<!-- 版心 S-->
+		<div class="w">
+			<!-- 版心 E -->
+			<!-- 头部 S -->
+			<div class="header">
+				<p class="headerText">全国城市天气查询</p>
+			</div>
+			<!-- 头部 E -->
+			<!-- 文本框 E -->
+			<div class="headerInput">
+				<input type="text" placeholder="请输入城市名称" id="headerGet">
+				<input type="button" value="查询天气" id="btn">
+			</div>
+			<!-- 文本框 E -->
+			<!-- 内容 S -->
+			<div class="lists">
+				<ul id="ulLists">
+					<script type="text/html" id="tmplt">
+						<li>
+                            <h3>城市:{{result.city}}</h3>
+                        </li>
+                         <li>
+                            <h3>时间:{{result.date}}</h3>
+                        </li>
+                         <li>
+                            <h3>星期:{{result.week}}</h3>
+                        </li>
+                         <li>
+                            <h3>天气:{{result.weather}}</h3>
+                        </li>
+                        <li>
+                            <h3>风力和风向</h3>
+                            <span>{{result.windpower}}</span>
+                            <span>{{result.winddirect}}</span>
+                        </li>
+                        <li>
+                            <ul>
+                                {{each result.index val index}}
+                                    <h3>{{val.iname}}</h3>
+                                    <li>{{val.ivalue}}</li>
+                                    <li>{{val.detail}}</li>
+                                {{/each}}
+                            </ul>
+                        </li>
+					</script>
+				</ul>
+			</div>
+			<!-- 内容 E -->
+		</div>
+		<!-- 版心 E -->
+	</div>
+</body>
+</html>

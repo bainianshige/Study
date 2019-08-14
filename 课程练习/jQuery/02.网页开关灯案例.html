@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>网页开关灯案例</title>
+	<!-- DOM的方式来处理 -->
+	<script type="text/javascript">
+		//点击按钮设置body的背景颜色，实现网页开关灯的效果
+		//DOM的方式来处理
+		// window.onload = function () {
+		// 	//获取元素1.按钮  2.body
+		// 	var btn = document.getElementById('btn');
+		// 	var body = document.body;
+
+		// 	//给按钮注册事件
+		// 	btn.onclick = function () {
+		// 		body.style.backgroundColor = '#ccc';
+		// 	};
+		// };
+
+		// window.onload = function () {
+		// 	document.getElementById('btn').onclick = function () {
+		// 		//判断按钮的value的值如果是关灯，则body的背景颜色为黑色
+		// 		//判断按钮的value的值如果是开灯，则body的背景颜色为白色
+		// 		if (this.value === '关灯') {
+		// 			document.body.style.backgroundColor = '#000';
+		// 			this.value = '开灯'
+		// 		} else {
+		// 			document.body.style.backgroundColor = '#fff';
+		// 			this.value = '关灯'
+		// 		}
+		// 	}
+		// }
+	</script>
+
+	<!-- jQuery的方式 -->
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		//点击按钮设置body的背景颜色，实现网页开关灯的效果
+		//jQuery的方式
+		//引入外部的jQuery文件
+		$(function () {
+			//获取按钮，注册点击事件
+			$('#btn').click(function () {
+				//.val()方法 ---> 获取按钮的value属性的值
+				//.val('内容');是设置按钮的value的值
+				if($(this).val() === '关灯') {
+					$('body').css('background','#000');
+					$(this).val('开灯');
+				} else {
+					$('body').css('background','#fff');
+					$(this).val('关灯');
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" value="关灯" id="btn" />
+
+
+<!-- 	<script type="text/javascript">
+
+	</script> -->
+</body>
+</html>

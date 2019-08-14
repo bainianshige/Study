@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>构造函数继承</title>
+</head>
+<body>
+	
+
+	<script type="text/javascript">
+		//借用构造函数继承
+
+		//父类型
+		function Person(name, age, sex) {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		Person.prototype.sayHi = function () {
+			console.log(this.name + 'hello');
+		}
+
+		//子类型
+		function Student(name, age, sex, score) {
+			Person.call(this, name, age, sex)
+			this.score = score;
+		}
+
+		var stu = new Student('zs', 18, '男', 100);
+		console.dir(stu);
+	</script>
+</body>
+</html>

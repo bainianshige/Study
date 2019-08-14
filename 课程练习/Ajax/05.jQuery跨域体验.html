@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery跨域体验</title>
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$('#btn').click(function () {
+				$.ajax({
+					type: 'get',
+					url: 'http://localhost/tom/json.php',
+					dataType: 'jsonp',
+					jsonp: 'cb',//json属性的作用就是自定义参数名字（callback=abc 这里的名字指的是等号前面的键，后端根据这个键获取方法名，jQuery的默认参数名称是callback）
+					jsonpCallback: 'abc',//这个属性的作用就是自定义回调函数的名字（callback=abc，这里的名字指的是等号后面的值）
+					success: function (data) {
+						console.log(data.username);
+					},
+					error: function (data) {
+						console.log(data);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<input type="button" value="点击" id="btn">
+</body>
+</html>

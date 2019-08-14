@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax中jsonp封装调用</title>
+	<script src="ajax+jsonp.js"></script>
+	<script type="text/javascript">
+		ajax({
+			url: 'http://localhost/tom/json.php',
+			dataType: 'jsonp',
+			data: {username:'lisi',age:'18'},
+			jsonp: 'cb',
+			jsonpCallback: 'abc',
+			success: function (data) { //这里的data是形参
+				console.log(data);
+			}
+		});
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

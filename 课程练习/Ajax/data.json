@@ -1,0 +1,10 @@
+{
+	"name" : "zhangsan",
+	"age" : 18,
+	"sex" : "男",
+	"lover" : ["coding","singing","dancing"],
+	"friend" : {
+		"high" : "180cm",
+		"wight" : "80kg"
+	}
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件冒泡的作用</title>
+</head>
+<body>
+	<ul id="ul">
+		<li>yang1</li>
+		<li>yang2</li>
+		<li>yang3</li>
+		<li>yang4</li>
+		<li>yang5</li>
+	</ul>
+
+	<script type="text/javascript">
+		//事件委托： 原理事件冒泡
+		var ul = document.getElementById('ul');
+		ul.onclick = function (e) {
+
+			//取消元素背景颜色
+			// for (var i = 0; i < ul.children.length; i++) {
+			// 	var li = ul.children[i];
+			// 	li.style.backgroundColor = 'transparent';
+			// }
+
+
+			//e 事件参数 (事件对象) ： 当事件发生的时候，可以获取一些和事件相关的数据
+			//获取到当前点击的li
+			//e.targer 是真正触发事件的对象
+			//console.log(e.target);
+
+			//让当前点击的li高亮显示
+			e.target.style.backgroundColor = 'skyblue';
+
+
+
+			//Propagation  传播
+			//停止时间传播  取消冒泡
+			//标准的DOM方法
+			e.stopPropagation();
+
+			//取消冒泡 非标准的方式 老版本的IE支持
+			e.cancelBubble = true;
+		}
+	</script>
+</body>
+</html>

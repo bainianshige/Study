@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>事件冒泡</title>
+	<style type="text/css">
+		#box1 {
+			height: 300px;
+			width: 300px;
+			background-color: pink;	
+		}
+		#box2 {
+			height: 200px;
+			width: 200px;
+			background-color: skyblue;	
+		}
+		#box3 {
+			height: 100px;
+			width: 100px;
+			background-color: purple;	
+		}
+	</style>
+</head>
+<body>
+	<div id="box1">
+		<div id="box2">
+			<div id="box3">
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		//addEventListener 的第三个参数的作用
+		var box1 = document.getElementById('box1');
+		var box2 = document.getElementById('box2');
+		var box3 = document.getElementById('box3');
+
+
+		var array = [box1, box2, box3];
+
+		// //addEventListener 的第三个参数为false的时候： 事件冒泡
+		// for (var i = 0; i < array.length; i++) {
+		// 	array[i].addEventListener('click', function () {
+		// 		console.log(this.id);
+		// 	}, false);
+		// }
+
+		// document.body.addEventListener('click', function () {
+		// 	console.log('body');
+		// } false);
+
+
+		//addEventListener 的第三个参数为true的时候： 事件捕获
+		// for (var i = 0; i < array.length; i++) {
+		// 	array[i].addEventListener('click', function () {
+		// 		console.log(this.id);
+		// 	}, true);
+		// }
+
+		// document.body.addEventListener('click', function () {
+		// 	console.log('body');
+		// }, true);
+
+
+
+		//事件的三个阶段
+		//第一个阶段： 捕获阶段
+		//第二个阶段： 执行当前点击的元素
+		//第三个阶段： 事件冒泡阶段
+
+
+		// box.onclick  只有事件冒泡
+		// box.attachEvent
+		// box.attachEvent  只有两个参数，只有事件冒泡
+		// box.attachEvent('onclick', function) {
+
+		// }
+
+		for (var i = 0; i < array.length; i++) {
+			array[i].onclick = function () {
+				console.log(this.id);
+			}
+		}
+		document.body.onclick = function () {
+			console.log('body');
+		}
+
+		document.onclick = function () {
+			console.log('document');
+		}
+	</script>
+</body>
+</html>

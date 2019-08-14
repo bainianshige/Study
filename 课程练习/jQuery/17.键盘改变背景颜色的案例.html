@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>键盘改变背景颜色的案例</title>
+	<style type="text/css">
+		div {
+			width: 200px;
+			height: 100px;
+			background-color: pink;
+		}
+	</style>
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$(document).keydown(function (e) {
+				// console.dir(e);
+				var keyCode = e.keyCode;
+				switch (keyCode) {
+					case 65: $('#dv').css('backgroundColor','red');
+						// statements_1
+						break;
+					default:
+						// statements_def
+						break;
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="dv"></div>
+</body>
+</html>

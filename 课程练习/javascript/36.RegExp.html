@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RegExp</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//内置对象 RegExp
+		//第一个参数 模式pattern   字符串类型
+		//第二个参数 flag  i：忽略大小学  g：全局匹配  字符串 
+		// var regularExpression = new RegExp('ab[a-z]', 'i');
+		// var str = 'aBd';
+
+		// console.log(regularExpression.test(str));
+		// console.dir(regularExpression);
+
+		//new Object() {}
+
+		var regularExpression = /ab[a-z]/i;
+		var str = 'aBd';
+		console.log(regularExpression.test(str));
+	</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>移除事件的兼容性处理</title>
+</head>
+<body>
+	<input type="button" value="按钮" id="btn">
+
+	<script src="common.js"></script>		
+	<script type="text/javascript">
+		var btn = my$('btn');
+		//注册事件
+		function btnClick() {
+			alert('hello yang');
+			//移除事件
+			removeEventListener(btn, 'click', btnClick);
+		}
+		addEventListener(btn, 'click', btnClick);
+	</script>
+</body>
+</html>

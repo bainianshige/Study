@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>好友面板切换</title>
+	<style type="text/css">
+		div {
+			width: 200px;
+			height: 500px;
+			border: 1px solid red;
+		}
+
+		#u1 {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			text-align: center;
+		}
+
+		#u1 li {
+			margin-bottom: 10px;
+			background-color: orange;
+			font-size: 20px;
+			font-weight: bolder;
+			cursor: pointer;
+		}
+
+		#u1 li ul {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+		}
+
+		#u1 li ul li {
+			background-color: pink;
+		}
+	</style>
+
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			//让li中的ul中的li隐藏
+			$('#u1>li>ul>li').hide();
+			//先获取ul中所有的第一层的li，注册点击事件
+			$('#u1>li').click(function () {
+				//让当前被点击的li的兄弟元素li中的ul中的li都隐藏
+				$(this).siblings('li').children('ul').find('li').hide(500);
+				$(this).children('ul').find('li').show(500);
+			});
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<ul id="u1">
+			<li>等级一
+				<ul>
+					<li>等级一</li>
+					<li>等级一</li>
+					<li>等级一</li>
+				</ul>
+			</li>
+			<li>等级二
+				<ul>
+					<li>等级二</li>
+					<li>等级二</li>
+					<li>等级二</li>
+				</ul>
+			</li>
+			<li>等级三
+				<ul>
+					<li>等级三</li>
+					<li>等级三</li>
+					<li>等级三</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

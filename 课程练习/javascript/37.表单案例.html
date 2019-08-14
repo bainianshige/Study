@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>表单案例</title>
+	<!-- style type="text/css" media="screen">
+		span {
+			color: red;
+		}
+	</style> -->
+</head>
+<body>
+	QQ号：<input type="text" id="txtQQ"><span></span><br>
+	邮箱：<input type="text" id="txtEmail"><span></span><br>
+	手机：<input type="text" id="txtPhone"><span></span><br>
+	生日：<input type="text" id="txtBirthday"><span></span><br>
+	姓名：<input type="text" id="txtName"><span></span><br>
+
+
+
+	<script type="text/javascript">
+		//获取html中所有的span元素，是一个伪数组
+		// var spans = document.getElementsByTagName('span');
+		// console.log(spans);
+
+		//onchage 事件 当文本改变并失去焦点
+		// txtQQ.onchage = function () {
+		// 	console.log(this.value);
+		// }
+
+		// var value;
+		// var regularExpression = /^\d{5,12}$/;
+		// txtQQ.onkeyup = function () {
+		// 	// console.log(this.value);
+		// 	if(!(regularExpression.test(this.value))) {
+				
+		// 	} else {
+		// 		console.log('正确的QQ号');
+		// 	}
+		// }
+
+		//注册事件，文本框失去焦点的时候
+		
+		//1.验证QQ号
+		//获取元素
+		// var txtQQ = document.getElementById('txtQQ');
+		// txtQQ.onblur = function () {
+		// 	//验证用户的输入是否是QQ号
+		// 	var regularExpression = /^\d{5,12}$/;
+		// 	var span = this.nextElementSibling;
+		// 	//检测用户输入的文本是否匹配指定的模式（正则表达式）
+		// 	if (!(regularExpression.test(this.value))) {
+		// 		//不匹配  在文本框后面的span中进行相应的提示
+		// 		//获取下一个兄弟元素
+		// 		span.innerText = '请输入正确的QQ格式'
+		// 		span.style.color = 'red';
+		// 		// spans[0].innerText = '请输入正确的QQ号码';
+		// 	} else {
+		// 		//匹配
+		// 		span.innerText = '';
+		// 	}
+		// }
+
+
+		//2.验证邮箱
+		// var txtEmail = document.getElementById('txtEmail');
+		// txtEmail.onblur = function () {
+		// 	//先写正则表达式判断用户输入的是否为邮箱
+		// 	var regularExpression = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+		// 	//获取span
+		// 	var span = this.nextElementSibling;
+		// 	//掉用正则表达式判断用户输入的是否为邮箱
+		// 	if (!(regularExpression.test(this.value))) {
+		// 		span.innerText ='请输入正确的邮箱地址!!!';
+		// 		span.style.color = 'red';
+		// 	} else {
+		// 		span.innerText = '';
+		// 	}
+		// }
+
+
+		//文本框的验证封装成一个函数
+		//第一个参数是元素的id  第二个参数是正则表达式的对象RegExp  第三个参数是提示的文本
+		function addCheck(elementId, regularExpression, tip) {
+			var element = document.getElementById(elementId);
+			element.onblur = function () {
+				var span = this.nextElementSibling;
+				if (!(regularExpression.test(this.value))) {
+					span.innerText = tip;
+					span.style.color = 'red';
+				} else {
+					span.innerText = '';
+				}
+			}
+		}
+
+		//1.验证QQ号
+		addCheck('txtQQ', /^\d{5,12}$/, '请输入正确的QQ号码！！！');
+
+		//2.验证邮箱地址
+		addCheck('txtEmail', /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/, '请输入正确的邮箱地址！！！');
+
+		//3.验证手机号
+		addCheck('txtPhone', /^[1-9]\d{10}&/, '请输入正确的表达式！！！');
+
+		//4.验证生日
+		addCheck('txtBirthday', /^\d{4}-\d{1,2}-\d{1,2}&/, '请输入正确的日期！！！');
+
+		//5.验证姓名
+		addCheck('txtName', /^[\u4e00-\u9fa5]{2,4}$/, '请输入2-4个汉字');
+	</script>
+</body>
+</html>

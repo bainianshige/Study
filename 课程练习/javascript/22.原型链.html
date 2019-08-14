@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型链</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//构造函数  原型对象  实例/对象s1.__proto__ 之间的关系
+		function Student (name, age, sex) {
+			this.name = name;
+			this.age = age;
+			this.sex = sex;
+		}
+		Student.prototype.sayHi = function () {
+			console.log('大家好，我是' + this.name);
+		}
+		console.log(Student.prototype);
+
+		//通过Student构造函数，创建的对象，可以访问Student.prototype中的成员
+		var s1 = new Student('lilei', 18, '男');
+		var s2 = new Student('hmm', 18, '女');
+
+		s1.s
+		// //Student构造函数的原型对象
+		// var o = s1.__proto__;
+		// console.log(o.__proto__);
+
+		// //o.__proto__ 指向Object的原型对象
+		// var o1 = o.__proto__;
+		// console.log(o1.__proto__);
+
+	</script>
+</body>
+</html>

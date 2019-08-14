@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>extend</title>
+</head>
+<body>
+	<script type="text/javascript">
+		//对象的拷贝
+		//复制对象的成员给另一个对象
+		function extend(parent, child) {
+			for (var key in parent) {
+				//子对象特有的值不继承
+				if (child[key]) {
+					continue;
+				}
+				child[key] = parent[key];
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跨域</title>
+	<script type="text/javascript">
+		//动态创建script标签发出去的请求是异步请求
+		//服务器响应的内容是【函数调用】  foo(实参)
+
+		var script = document.createElement('script');
+		script.src = 'http://localhost/tom/data.php?callback=hello';
+		var head = document.getElementsByTagName('head')[0];
+		head.appendChild(script);
+		
+
+		//hello就是回调函数
+		//就是jsonp的本质：动态创建script标签，然后通过它的src属性发送跨域请求，然后服务器端响应的数据为【函数的调用(foo(实参))】，在发送请求之前必须先声明一个函数，并且函数的名字与参数中传递的名字要一致。这里声明的函数是由服务器响应的内容(实际上就是一段js代码-函数调用)来调用
+		function hello(data) {
+			console.log(data.username);
+		}
+		//这里的foo函数是根据服务器返回的响应内容来调用的(内容就是js代码-函数调用foo(123))
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>text</title>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<input type="button" value="按钮" id="btn">
+
+	
+	<script type="text/javascript">
+		//注册事件的第二种方式	IE9以后才执行
+		var btn = document.getElementById('btn');
+		btn.addEventListener('click', function() {
+
+		})
+
+
+		//注册事件的第三种方法
+		//浏览器兼容问题 IE的老版本特有的方法 IE6-10支持
+
+
+		//第一个参数，事件的名称前要加 on
+		btn.attachEvent('onclick', function () {
+			alert('hello world');
+		});
+
+		btn.attachEvent('onclick', function () {
+			alert('hello yang');
+		});
+	</script>
+</body>
+</html>

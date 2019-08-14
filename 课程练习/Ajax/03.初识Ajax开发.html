@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>初识Ajax开发</title>
+	<script type="text/javascript">
+		window.onload = function () {
+			var btn = document.getElementById('btn');
+			btn.onclick = function () {
+				var username = document.getElementById('username').value;
+				var password = document.getElementById('password').value;
+				//使用Ajax发送请求需要几步：
+				//1.创建XMLttpRequset对象
+				var xhr = new XMLHttpRequest();
+				//2.准备发送
+
+				//参数一：请求方式（get获取数据：post提交数据）
+				//参数二：请求地址
+				//参数三：同步或者异步标志位，默认是true表示异步，false表示同步
+				// xhr.open('get','./check.php?username=' + username + '&password=' + password,true);
+
+				//post请求参数通过send传递，不需要通过encodeURI()转码，不过要设置请求头信息
+				var param = 'username=' + username + '&password=' + password; 
+				xhr.open('post','./check.php','true');
+				//3.执行发送动作
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.send(param);//post请求参数在这里传递，并且不需要转码
+				//4.指定回调函数
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState == 4) {
+						if (xhr.status == 200) {
+							var data = xhr.responseText;
+							var info = document.getElementById('info');
+							if (data == '1') {
+								info.innerHTML = '登录成功';
+							} else if (data == '2') {
+								info.innerHTML = '用户名或者密码错误';
+							}
+						}
+					}
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<form>
+		用户名：<input type="text" name="username" id="username"><br>
+		密码：<input type="text" name="password" id="password"><br>
+		<input type="button" value="登录" id="btn"><span id="info"></span>
+	</form>
+</body>
+</html>

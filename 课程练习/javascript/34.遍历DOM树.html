@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+	<script type="text/javascript">
+		//遍历指定元素下的所有子元素
+		function loadTree(parent) {
+			for (var i = 0; i < parent.children.length; i++) {
+				//遍历第一级别的子元素
+				var child = parent.children[i];
+				console.log(child);
+
+				//递归调用
+				loadTree(child);
+			}
+		}
+
+		loadTree(document.body);
+	</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>弹出层</title>
+	<style type="text/css">
+		.login-header {
+			width: 100%;
+			text-align: center;
+			height: 30px;
+			font-size: 24px;
+			line-height: 30px;
+		}
+		ul, li, ol, dl, dt, dd, div, p, span, h1, h2, h3, h4, h5, h6, a {
+			padding: 0px;
+			margin: 0px;
+		}
+		a {
+			text-decoration: none;
+			color: #000;
+		}
+		.login {
+			width: 512px;
+			position: absolute;
+			border: 1px solid #ebebeb;
+			height: 280px;
+			left: 50%;
+			top: 10%;
+			background-color: #fff;
+			box-shadow: 0px 0px 20px #ddd;
+			z-index: 999;
+			margin-left: -256px;
+			margin-top: 140px;
+			display: none;
+		}
+		.login-title {
+			width: 100%;
+			margin: 10px 0px 0px 0px;
+			text-align: center;
+			line-height: 40px;
+			height: 40px;
+			font-size: 18px;
+			position: relative;
+			cursor: move;
+			 -moz-user-select:none;/*火狐*/
+            -webkit-user-select:none;/*webkit浏览器*/
+            -ms-user-select:none;/*IE10*/
+            -khtml-user-select:none;/*早期浏览器*/
+            user-select: none;
+		}
+		.login-input-content {
+			margin-top: 20px;
+		}
+		.login-button {
+			width: 50%;
+			margin: 30px auto 0px auto;
+			line-height: 40px;
+			font-size: 14px;
+			border: 1px solid #ebebeb;
+			text-align: center;
+		}
+		.login-bg {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0px;
+			left: 0px;
+			background-color: #000;
+			filter: alpha(opacity=30);
+			-moz-opacity: 0.3;
+			-khtml-opacity: 0.3;
+			opacity: 0.3;
+			display: none;
+		}
+		.login-button a {
+			display: block;
+		}
+		.login-input input.list-input {
+			float: left;
+			line-height: 35px;
+			height: 35px;
+			width: 350px;
+			border: 1px solid #ebebeb;
+			text-indent: 5px;
+		}
+		.login-input {
+			overflow: hidden;
+			margin: 0px 0px 20px 0px;
+		}
+		.login-input label {
+			float: left;
+			width: 90px;
+			padding-right: 10px;
+			text-align: right;
+			line-height: 35px;
+			height: 35px;
+			font-size: 14px;
+		}
+		.login-title span {
+			position: absolute;
+			font-size: 12px;
+			right: -20px;
+			top: -30px;
+			background-color: #fff;
+			border: 1px solid #ebebeb;
+			width: 40px;
+			height: 40px;
+			border-radius: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="login-header"><a href="javascript:void(0);" id="link">点击，弹出登陆框</a></div>
+	<div class="login" id="login">
+		<div id="title" class="login-title">登陆会员
+			<span><a href="javascript:void(0);" id="closeBtn" class="close-login">关闭</a></span>
+		</div>
+		<div class="login-input-content">
+			<div class="login-input">
+				<label>用户名：</label>
+				<input type="text" placeholder="请输入用户名" name="info[username]" id="username" class="list-input">
+			</div>
+			<div class="login-input">
+				<label>登陆密码：</label>
+				<input type="text" placeholder="请输入登陆密码" name="info[password]" id="password" class="list-input">
+			</div>
+		</div>
+		<div class="login-button" id="loginBtn"><a href="javascript:void(0);" id="login-button-submit" >登陆会员</a></div>
+	</div>
+	<!-- 遮盖层 -->
+	<div id="bg" class="login-bg"></div>
+
+
+	<script type="text/javascript">
+		//全局变量
+		var login = document.getElementById('login');
+		var bg = document.getElementById('bg');
+		//1.点击按钮，弹出登陆框和遮盖层
+		var link = document.getElementById('link');
+		link.onclick = function () {
+			//显示登陆框和遮盖层
+			login.style.display = 'block';
+			bg.style.display = 'block';
+			return false;
+		}
+
+		//2.点击关闭按钮，隐藏登陆框和遮盖层
+		var closeBtn = document.getElementById('closeBtn');
+		closeBtn.onclick = function () {
+			//隐藏登陆框和遮盖层 前面获取过了 可以直接调用
+			login.style.display = 'none';
+			bg.style.display = 'none';
+			return false;
+		}
+
+		//3.拖拽实现，先给拖拽的对象注册鼠标按下事件
+		var title = document.getElementById('title');
+		title.onmousedown = function (e) {
+
+			//获取鼠标在盒子里的坐标
+			var x = e.pageX - login.offsetLeft;
+			var y = e.pageY - login.offsetTop;
+
+			//第二个事件当鼠标移动时，需要获取移动对象的坐标
+			document.onmousemove = function (e) {
+				//拖拽时盒子login的坐标
+				//鼠标在页面上的坐标减去鼠标在盒子中的位置
+				var loginX = e.pageX - x;
+				var loginY = e.pageY - y;
+
+				//给盒子赋在、坐标
+				login.style.left = 256 + loginX + 'px';
+				login.style.top = -140 + loginY + 'px';
+			}
+
+			//第三个事件当鼠标弹起的时候，需要清除事件
+			document.onmouseup = function () {
+				document.onmousemove = null;
+			}
+		}
+	</script>
+</body>
+</html>

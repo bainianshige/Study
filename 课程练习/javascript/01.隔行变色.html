@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	</style>
+</head>
+<body>
+	<input type="button" id="btn" value="按钮">
+	<div id="box">
+		
+	</div>
+
+	<script type="text/javascript">
+		//element.innerHTML
+		// var box = document.getElementById('box');
+		// box.innerHTML = 'hello <p>World</p>';
+
+		var btn = document.getElementById('btn');
+		btn.onclick = function () {
+			var box = document.getElementById('box');
+			box.innerHTML = 'hello <p>World</p>';	
+		}
+	</script>
+</body>
+</html>

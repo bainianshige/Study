@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>链式编程案例</title>
+	<style type="text/css">
+		ul {
+			list-style: none;
+			width: 300px;
+			position: absolute;
+			left: 500px;
+		}
+		ul li {
+			margin-top: 10px;
+			cursor: pointer;
+			text-align: center;
+			font-size: 20px;
+		}
+	</style>
+	<script src="jquery-1.12.2.js"></script>
+	<script type="text/javascript">
+		//1.第一个案例
+		//获取列表中每个li，当鼠标进入后，当前的li有高亮显示，点击的时候可以让当前被点击的li的字体变大，字体的颜色改变，改变字体
+			// $(function () {
+			// 	$('#uu>li').mouseover(function () {
+			// 		$(this).css('background','red').siblings('li').css('background','#fff');
+			// 	}).click(function () {
+			// 		$(this).css({'fontSize':'50px','color':'#fff','fontFamily':'Microsoft YaHei'});
+			// 	});
+			// });
+
+		//2.第二个案例
+		//点击按钮，改变按钮的value值，鼠标进入到按钮中，按钮的宽改变，高改变，鼠标离开的时候，按钮的背景颜色为绿色
+			// $(function () {
+			// 	$('#btn').click(function () {
+			// 		$(this).val('已点击');
+			// 	}).mouseover(function () {
+			// 		$(this).css('width','200px').css('height','100px');
+			// 	}).mouseout(function () {
+			// 		$(this).css('background','red');
+			// 	});
+			// });
+
+		//3.啤酒案例
+		$(function () {
+			$('ul>li').mouseenter(function () {
+				$(this).css('background','pink').siblings('li').css('background','');
+			}).mouseleave(function () {
+				$(this).css('background','').siblings('li').css('background','');
+			}).click(function () {
+				// $(this).prevAll().css('background','blue');
+				// $(this).nextAll().css('background','red');
+
+				//解决断链--->恢复到断链之前的一个效果--修复断链(用.end()方法)
+				$(this).prevAll().css('background','blue').end().nextAll().css('background','red');
+			});
+		});
+	</script>
+</head>
+<body>
+	<!-- 第一个案例的html -->
+	<!-- <ul id="uu">
+		<li>第一个</li>
+		<li>第二个</li>
+		<li>第三个</li>
+		<li>第四个</li>
+		<li>第五个</li>
+	</ul> -->
+
+	<!-- 第二个案例 -->
+	<!-- <input type="button" value="未点击" id="btn"> -->
+
+	<!-- 啤酒练习 -->
+	<ul>
+    <li>青岛啤酒（TsingTao）</li>
+    <li>瓦伦丁（Wurenbacher）</li>
+    <li>雪花（SNOW）</li>
+    <li>奥丁格教士（Franziskaner）</li>
+    <li>科罗娜喜力柏龙（Paulaner）</li>
+    <li>嘉士伯Kaiserdom</li>
+    <li>罗斯福（Rochefort）</li>
+    <li>粉象（Delirium）</li>
+    <li>爱士堡（Eichbaum）</li>
+    <li>哈尔滨牌蓝带</li>
+</ul>
+</body>
+</html>
