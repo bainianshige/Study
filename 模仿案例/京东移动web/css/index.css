@@ -70,26 +70,26 @@
 	overflow: hidden;
 	position: relative;
 }
-.jd_bannerImg {
-	width: 800%;
-}
 /* .jd_bannerImg {
 	width: 1000%;
-	添加默认偏移
-	transform: translateX(-10%);
-	使用定位
-	使用absolute定位，会造成父容器无法获取子元素的撑开的高度
-	position: relative;
-	left: -100%;
 } */
-.jd_bannerImg li {
-	width: 12.5%;
-	float: left;
+.jd_bannerImg {
+	width: 1000%;
+	/* 添加默认偏移 */
+	/* transform: translateX(-10%); */
+	/* 使用定位
+	使用absolute定位，会造成父容器无法获取子元素的撑开的高度 */
+	position: relative;
+	/* left: -100%; */
 }
 /* .jd_bannerImg li {
-	width: 10%;
+	width: 12.5%;
 	float: left;
 } */
+.jd_bannerImg li {
+	width: 10%;
+	float: left;
+}
 .jd_bannerImg li img {
 	/* 1.设置为块级元素
 	2.可以将文本的字体

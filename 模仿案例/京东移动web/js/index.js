@@ -4,6 +4,8 @@ window.onload = function () {
 	bannerEffect();
 }
 
+
+
 // 头部的js效果
 function searchEffect () {
 	// 头部搜索块的js效果
@@ -74,4 +76,62 @@ function bannerEffect() {
 	imgBox.insertBefore(last.cloneNode(true), imgBox.firstChild);
 
 	// 2.设置对应的样式
+	// 2.1 获取所有的li元素
+	var lis = imgBox.querySelectorAll('li');
+	// 2.2 获取li元素的数量
+	var count = lis.length;
+	// 2.3 获取banner的宽度
+	var bannerWidth = banner.offsetWidth;
+	// 2.4 设置图片盒子的宽度
+	imgBox.style.width = bannerWidth * count + "px";
+	// 2.5 设置每一个li元素的宽度
+	for (var i = 1; i < lis.length; i++) {
+		lis[i].style.width = bannerWidth +  "px";
+	}
+
+	// 定义图片的索引:图片已经有了一个宽度的默认偏移
+	var index = 1;
+
+	// 3.设置默认的偏移
+	imgBox.style.left = - bannerWidth + "px";
+
+	// 4.当屏幕变化的时候，重新计算宽度
+	window.onresize  = function () {
+		// 4.1 获取banner的宽度,并且覆盖全局的宽度值
+		bannerWidth = banner.offsetWidth;
+		// 4.2 设置图片盒子的宽度
+		imgBox.style.width = bannerWidth * count + "px";
+		// 4.3 设置每一个li元素的宽度
+		for (var i = 1; i < lis.length; i++) {
+			lis[i].style.width = bannerWidth +  "px";
+		}
+
+		// 4.4设置默认的偏移
+		imgBox.style.left = - bannerWidth * index + "px";
+
+	}
+
+	// 5.实现自动播放
+	setInterval(function () {
+		// 5.1 变化索引
+		index++;
+		// 5.2 添加过渡效果
+		imgBox.style.transition = "left 0.5s ease-in-out"
+		// 5.3设置默认的偏移
+		imgBox.style.left = (-index * bannerWidth) + "px";
+		// 5.4 判断是否到最后一张
+		setTimeout(function () {
+			if (index == count-1) {
+				console.log(index);
+			index = 1;
+			// 如果一个元素的某个属性之前添加过过渡效果，那么过渡属性会一直存在，如果不想要，则需要清除过渡效果
+			// 关闭过渡效果
+			imgBox.style.transition = 'none';
+			// 偏移到制定的位置
+			imgBox.style.left = (-index * bannerWidth) + "px";
+		}
+		}, 500)
+	}, 2000)
+
 }
+
