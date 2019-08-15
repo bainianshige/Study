@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<!-- 移动端设置viewport -->
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<style type="text/css">
-		a {
-			width: 100px;
-			height: 100px;
-			display: block;
-			border: 1px solid #ccc;
-			-webkit-tap-highlight-color: transparent;
-		}
-		input {
-			outline: none;
-		}
-	</style>
+	<!-- 引入公共样式 -->
+	<link rel="stylesheet" type="text/css" href="css/base.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<title>京东移动WEB</title>
 </head>
 <body>
-	<a href="#">首页</a>
-	<input type="text" name="" id="">
+	<div class="jd_layout">
+		<!-- 搜索块 -->
+		<div class="jd_search">
+			<a href="javascript:" class="jd_logo"></a>
+			<form action="" class="jd_searchBox">
+				<input type="test" name="" placeholder="请输入商品名称">
+			</form>
+			<a href="javascript:" class="jd_login">登录</a>
+		</div>
+		<!-- 轮播图 -->
+		<div class="jd_banner"></div>
+		<!-- 导航块 -->
+		<div class="jd_nav"></div>
+		<!-- 产品块 -->
+		<div class="jd_product"></div>
+	</div>
 </body>
 </html>

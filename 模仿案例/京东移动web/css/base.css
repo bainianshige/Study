@@ -1,7 +1,7 @@
 /* 公共样式 */
 
 /* 1.样式重置 */
-html, body, ul, li, img, a, p, div{
+html, body, ul, li, img, a, p, div, form, input{
 	padding: 0;
 	margin: 0;
 	/* 设置盒模型 */
@@ -24,5 +24,33 @@ ul {
 input {
 	/* 1.清除文本框获取焦点时默认的边框阴影 */
 	outline: none;
+	/* 2.去除边框 */
+	border: none;
+	/* 3.添加边框 */
+	border: 1px solid #ccc;
 }
 /* 2.公共样式 */
+.f_left {
+	float: left;
+}
+.f_right {
+	float: right;
+}
+.m_left10 {
+	margin-left: 10px;
+}
+.m_right10 {
+	margin-right: 10px;
+}
+.m_top10 {
+	margin-top: 10px;
+}
+.clearfix::before,
+.clearfix::after {
+	content: "";
+	display: block;
+	height: 0;
+	line-height: 0;
+	clear: both;
+	visibility: hidden;
+}
