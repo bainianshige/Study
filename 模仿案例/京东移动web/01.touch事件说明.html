@@ -5,10 +5,15 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>touch事件说明</title>
 	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
 		div {
-			width: 200px;
+			width: 800px;
 			height: 200px;
-			background-color: pink;	
+			/* background-color: pink;	 */
+			background: linear-gradient(to right, red,blue);
 		}
 	</style>
 </head>
@@ -21,17 +26,20 @@
 		var div = document.querySelector('div');
 		// 2.添加事件
 		// 添加开始触摸事件，当手指触摸到屏幕时触发
-		div.addEventListener('touchstart', function () {
-			console.log('touchstart');
+		div.addEventListener('touchstart', function (e) {
+			console.dir(e.targetTouches[0].clientX + ':' + e.targetTouches[0].clientY);
 		})
+
 		// 添加手指滑动事件，当手指在屏幕滑动时触发
-		div.addEventListener('touchmove', function () {
-			console.log('touchmove');
-		})
+		// div.addEventListener('touchmove', function () {
+		// 	console.log('touchmove');
+		// })
+
 		// 添加触摸结束事件，当手指离开屏幕时触发
-		div.addEventListener('touchend', function  () {
-			console.log('touchend');
-		})
+		// div.addEventListener('touchend', function  () {
+		// 	console.log('touchend');
+		// })
+
 		// //添加触发意外中断事件
 		// div.addEventListener('touchcancel', function () {
 		// 	console.log('touchcancel');
