@@ -68,6 +68,13 @@ html, body {
 	height: 100%;
 	float: left;
 	overflow: hidden;
+	position: relative;
+}
+.ct_cLeft ul {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .ct_cLeft li {
 	height: 50px;
@@ -117,6 +124,7 @@ html, body {
 	width: 100%;
 	overflow: hidden;
 	flex: 1;
+	position: relative;
 }
 .ct_hotCategory li {
 	width: 33.33%;

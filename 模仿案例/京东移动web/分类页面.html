@@ -5,6 +5,10 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/base.css">
 	<link rel="stylesheet" type="text/css" href="css/分类样式.css">
+	<!-- <script src="js/common.js"></script> -->
+
+	<!-- 使用zepto中封装好的Tap事件来实现左侧的单击操作 -->
+	<script src="js/zepto.js"></script>
 	<script src="js/分类页面.js"></script>
 	<title>分类页面</title>
 </head>
@@ -56,7 +60,7 @@
 				</a>
 				<h3>热门分类</h3>
 				<div class="ct_hotCategory">
-					<ul>
+					<ul style="overflow: hidden;">
 						<li>
 							<a href="javascript:;">
 								<img src="uploads/nv-fy.jpg" alt="">
@@ -206,5 +210,13 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="js/iscroll.js"></script>
+	<script type="text/javascript">
+	var myScroll = new IScroll('.ct_hotCategory', {
+		mouseWheel: true,
+    	scrollbars: true
+	});
+	</script>
 </body>
 </html>
