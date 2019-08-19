@@ -18,6 +18,12 @@
         .container .row {
             height: 100%;
         }
+        /*
+         w>1200     lg: large       大屏幕
+        w:992~1200  md: middle      中等屏幕
+        w:768~992   sm: small       小屏幕
+        w<768       xs: extra small 特别小的屏幕(手机)
+        */
         .container .row div {
             height: 100%;
             border: 2px solid skyblue;
@@ -27,12 +33,25 @@
   </head>
   <body>
     <div class="container">
-        <div class="row">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+      <!--   <div class="row">
+          class="col-xs-4":设置当前div在xs屏幕中占据当前屏幕12等分中的4等分
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4"></div>
+          <div class="col-xs-4"></div>
+      </div> -->
+
+      <!-- 需求 -->
+      <!-- 当宽度小于762px，占据12等分 -->
+      <!-- 当宽度大于768，小于992，占据6等分 -->
+      <!-- 当宽度大于992，小于1200，占据4等分 -->
+      <!-- 当宽度大于1200，占据3等分 -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"></div>
+      </div>
     </div>
     <script src="jQuery/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

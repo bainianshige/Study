@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- [if lt IE 9] -->
+      <script src="html5shiv/html5shiv.min.js"></script>
+      <script src="respond/respond.js"></script>
+    <!-- [endif] -->
+    <style type="text/css">
+        .container {
+            height: 100px;
+            background-color: #ccc;
+        }
+        .container .row {
+            height: 100%;
+        }
+        .container .row div {
+            height: 100%;
+            border: 2px solid pink;
+            box-sizing: border-box;
+        }
+        .container .row div .row div {
+        	height: 100%;
+        	border: 2px solid blue;
+        	box-sizing: border-box;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+    	<!-- 列嵌套 -->
+		<div class="row">
+			<div class="col-xs-1 hidden-sm">1</div>
+			<div class="col-xs-1 hidden-xs">2</div>
+			<div class="col-xs-6 hidden-lg">
+				<!-- 1.如果在外层没有再包含container，那么嵌套列的宽度就是参照当前所在的栅格
+					2.如果外层添加了container，那么参照就是核心样式文件所在设置的容器宽度 -->
+				<!-- container -->
+				<div class="row">
+					<div class="col-xs-6"></div>
+					<div class="col-xs-6"></div>
+				</div>
+			</div>
+			<div class="col-xs-1">4</div>
+			<div class="col-xs-1">5</div>
+			<div class="col-xs-1">6</div>
+			<div class="col-xs-1">7</div>
+		</div>
+		<!-- push(往后-右退)/pull(往前-左拉) 通过定位来实现，所以不会影响其它元素，但是可能和其它元素重叠-->
+		<!-- <div class="row">
+			<div class="col-xs-1">1</div>
+			<div class="col-xs-1 col-xs-push-2">2</div>
+			<div class="col-xs-1">3</div>
+			<div class="col-xs-1 col-xs-pull-2">4</div>
+			<div class="col-xs-1">5</div>
+			<div class="col-xs-1">6</div>
+			<div class="col-xs-1">7</div>
+		</div> -->
+		<!-- offset:偏移 偏移的距离是以栅格作为单位 但是这种偏移会直接影响后面的元素，有可能造成后面的元素换行显示，因为是通过margin-left属性来实现的-->
+		<!-- <div class="row">
+			<div class="col-xs-1">1</div>
+			<div class="col-xs-1 col-xs-offset-2">2</div>
+			<div class="col-xs-1">3</div>
+			<div class="col-xs-1">4</div>
+			<div class="col-xs-1">5</div>
+			<div class="col-xs-1">6</div>
+			<div class="col-xs-1">7</div>
+		</div> -->
+    </div>
+    <script src="jQuery/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>
