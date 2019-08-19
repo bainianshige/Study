@@ -42,3 +42,40 @@
 .wjs_header .row > div:nth-last-of-type(1) .btn-link:hover {
   text-decoration: none;
 }
+/* 导航栏样式 */
+.wjs_nav {
+  /* 修改导航项的样式 */
+  /* 移动端手风琴居中 */
+}
+.wjs_nav .navbar-brand {
+  height: 80px;
+  line-height: 50px;
+}
+.wjs_nav .navbar-brand .wjs_icon {
+  font-size: 40px;
+}
+.wjs_nav .navbar-brand span:first-of-type {
+  color: #e92322;
+}
+.wjs_nav .navbar-brand span:last-of-type {
+  color: #333;
+}
+.wjs_nav .navbar-nav > li > a {
+  line-height: 50px;
+  font-size: 16px;
+}
+.wjs_nav .navbar-nav > li a:hover,
+.wjs_nav .navbar-nav > li a:focus {
+  color: #777;
+  background-color: transparent;
+  border-bottom: 3px solid #e92322;
+}
+.wjs_nav .navbar-nav .active a,
+.wjs_nav .navbar-nav .active a:hover,
+.wjs_nav .navbar-nav .active a:focus {
+  background-color: transparent;
+  border-bottom: 3px solid #e92322;
+}
+.wjs_nav .navbar-toggle {
+  margin-top: 23px;
+}
