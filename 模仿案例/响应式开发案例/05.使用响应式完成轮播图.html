@@ -26,6 +26,14 @@
       -webkit-background-size: cover;
       background-size: cover;
     }
+    .mobileImg {
+      width: 100%;
+      display: block;
+    }
+    .mobileImg img {
+      width: 100%;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -39,16 +47,30 @@
 
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <a href="javascript:;" title="" class="pcImg" style="background-image: url('./images/slide_01_2000x410.jpg');"></a>
+      <!-- mobileImg 移动端的 -->
+      <a href="javascript:;" title="" class="mobileImg hidden-sm hidden-md hidden-lg">
+        <img src="./images/slide_01_640x340.jpg" alt="...">
+      </a>
+      <!-- pcImg 非移动端 -->
+      <a href="javascript:;" title="" class="pcImg hidden-xs" style="background-image: url('./images/slide_01_2000x410.jpg');"></a>
     </div>
     <div class="item">
-      <a href="javascript:;" title="" class="pcImg" style="background-image: url('./images/slide_02_2000x410.jpg');"></a>
+       <a href="javascript:;" title="" class="mobileImg hidden-sm hidden-md hidden-lg">
+        <img src="./images/slide_02_640x340.jpg" alt="...">
+      </a>
+      <a href="javascript:;" title="" class="pcImg hidden-xs" style="background-image: url('./images/slide_02_2000x410.jpg');"></a>
     </div>
     <div class="item">
-      <a href="javascript:;" title="" class="pcImg" style="background-image: url('./images/slide_03_2000x410.jpg');"></a>
+       <a href="javascript:;" title="" class="mobileImg hidden-sm hidden-md hidden-lg">
+        <img src="./images/slide_03_640x340.jpg" alt="...">
+      </a>
+      <a href="javascript:;" title="" class="pcImg hidden-xs" style="background-image: url('./images/slide_03_2000x410.jpg');"></a>
     </div>
     <div class="item">
-      <a href="javascript:;" title="" class="pcImg" style="background-image: url('./images/slide_04_2000x410.jpg');"></a>
+       <a href="javascript:;" title="" class="mobileImg hidden-sm hidden-md hidden-lg">
+        <img src="./images/slide_04_640x340.jpg" alt="...">
+      </a>
+      <a href="javascript:;" title="" class="pcImg hidden-xs" style="background-image: url('./images/slide_04_2000x410.jpg');"></a>
     </div>
   </div>
 
