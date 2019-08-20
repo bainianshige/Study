@@ -139,7 +139,6 @@
 
 /* 预约块样式 */
 .wjs_reverse {
-	height: 60px;
 	line-height: 60px;
 	border-bottom: 1px solid #ccc;
 	border-top: 1px solid #ccc;
@@ -160,6 +159,11 @@
 	clear: both;
 	background-color: #eee;
 	padding: 20px;
+	/* 导航条滚动 */
+	.tabs_parent {
+		width: 100%;
+		overflow: hidden;
+	}
 	/* 导航项样式的修改 */
 	.nav-tabs {
 		li {
@@ -285,6 +289,107 @@
 					font-size: 28px;
 				}
 			}
+		}
+	}
+}
+
+/* 新闻块样式 */
+.wjs_news {
+	padding-top: 20px;
+	.wjs_nTitle {
+		line-height: 50px;
+		font-size: 25px;
+		border-bottom: 1px solid #ccc;
+		text-align: center;
+		position: relative;
+		&::before {
+			content: "";
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			border: 1px solid #ccc;
+			position: absolute;
+			bottom: -4px;
+			right: -8px;
+		}
+	}
+
+	/* 添加虚线边框 */
+	.wjs_newsLine {
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 45px;
+		border-left: 1px dashed @baseColor;
+	}
+
+	.nav-tabs {
+		border-bottom: none;
+		position: relative;
+		/* 使用伪元素添加虚线：伪元素必须要求父元素有具体的宽高值，所谓具体的宽高值是指在样式中设置了width/height */
+		// &::before {
+		// 	content: "";
+		// 	width: 1px;
+		// 	height: 420px;
+		// 	position: absolute;
+		// 	top: 0;
+		// 	left: 0;
+		// 	border-left: 1px solid @baseColor;
+		// }
+		> li {
+			margin-bottom: 60px;
+			> a {
+				background-color: #ccc;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				border: none;
+			}
+			> a:hover {
+				border: none;
+				background-color: @baseColor;
+			}
+			&.active {
+				> a, a:hover, a:focus {
+					border: none;
+					background-color: @baseColor;
+				}
+			}
+			.wjs_icon {
+				font-size: 30px;
+				color: #fff;
+			}
+		}
+		> li:last-of-type {
+			margin-bottom: 0px;
+		}
+		/* 使用媒体查询设置屏幕宽度在798~992之间的li元素的样式 */
+		@media screen and (min-width: 768px) and (max-width: 992px) {
+			> li {
+				margin: 20px 30px;
+			}
+		}
+		/* 使用媒体查询设置屏幕宽度小于768时li元素的样式 */
+		@media screen and (max-width: 768px) {
+			> li {
+				margin: 20px 0px;
+				width: 25%;
+				> a {
+					margin-left: 30%;
+				}
+			}
+		}
+	}
+
+	// 新闻列表
+	.wjs_newslist {
+		list-style: none;
+		> li {
+			line-height: 60px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space:nowrap; 
 		}
 	}
 }

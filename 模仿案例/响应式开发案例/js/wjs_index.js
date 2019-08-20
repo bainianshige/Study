@@ -58,10 +58,20 @@ $(function () {
 	/*定义一个总宽度*/
 	var totalWidth = 0;
 	lis.each(function (index, value) {
-		totalWidth += $(value).width();
-		console.log(totalWidth);
+		totalWidth += $(value).innerWidth();
+		// console.log(totalWidth);
+		// 获取宽度的方法的说明
+		// *width();只能得到当前元素的内容的宽度
+		// innerWidth();能获取到当前元素的内容的宽度+padding
+		// outWidth();能获取到当前元素的内容的宽度+padding+border
+		// outWidth(true);能获取到当前元素的内容的宽度+padding+border+margin
 	});
+	ul.width(totalWidth);
 
+	// 使用插件来实现导航条的操作
+	var myScroll = new IScroll('.tabs_parent', {
+		// 设置水平滑动,同时不允许垂直滑动
+		scrollX: true, scrollY: false
+	});
 });
-
 

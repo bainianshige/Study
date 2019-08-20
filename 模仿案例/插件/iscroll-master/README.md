@@ -1,5 +1,4 @@
 <h1 id="intro">iScroll, smooth scrolling for the web</h1>
-
 iScroll is a high performance, small footprint, dependency free, multi-platform javascript scroller.
 
 It works on desktop, mobile and smart TV. It has been vigorously optimized for performance and size so to offer the smoothest result on modern and old devices alike.
@@ -14,7 +13,6 @@ Even on platforms where native scrolling is good enough, iScroll adds features t
 * Out of the box multi-platform support. From older Android devices to the latest iPhone, from Chrome to Internet Explorer.
 
 <h2 id="iscroll-versions">The many faces of iScroll</h2>
-
 iScroll is all about optimization. To reach the highest performance it has been divided into multiple versions. You can pick the version that better suits your need.
 
 Currently we have the following fragrances:
@@ -26,7 +24,6 @@ Currently we have the following fragrances:
 * **iscroll-infinite.js**, can do infinite and cached scrolling. Handling very long lists of elements is no easy task for mobile devices. *iScroll infinite* uses a caching mechanism that lets you scroll a potentially infinite number of elements.
 
 <h2 id="getting-started">Getting started</h2>
-
 So you want to be an iScroll master. Cool, because that is what I'll make you into.
 
 The best way to learn the iScroll is by looking at the demos. In the archive you'll find a `demo` folder [stuffed with examples](https://github.com/cubiq/iscroll/tree/master/demos). Most of the script features are outlined there.
@@ -85,7 +82,6 @@ Note that iScroll uses `querySelector` not `querySelectorAll`, so only the first
 </div>
 
 <h2 id="initialization">Initialization</h2>
-
 The iScroll needs to be initiated when the DOM is ready. The safest bet is to start it on window `onload` event. `DOMContentLoaded` or inline initialization are also fine but remember that the script needs to know the height/width of the scrolling area. If you have images that don't have explicit width/height declaration, iScroll will most likely end up with a wrong scroller size.
 
 <div class="important">
@@ -124,7 +120,6 @@ Refer to the [barebone example](http://lab.cubiq.org/iscroll5/demos/barebone/) f
 </div>
 
 <h2 id="configuring">Configuring the iScroll</h2>
-
 iScroll can be configured by passing a second parameter during the initialization phase.
 
 ```js
@@ -145,7 +140,6 @@ console.dir(myScroll.options);
 The above will return the configuration the `myScroll` instance will run on. By *normalized* I mean that if you set `useTransform:true` (for example) but the browser doesn't support CSS transforms, `useTransform` will be `false`.
 
 <h2 id="the-core">Understanding the core</h2>
-
 iScroll uses various techniques to scroll based on device/browser capability. **Normally you don't need to configure the engine**, iScroll is smart enough to pick the best for you.
 
 Nonetheless it is important to understand which mechanisms iScroll works on and how to configure them.
@@ -177,7 +171,6 @@ Default: `true`
 </div>
 
 <h2 id="basic-features">Basic features</h2>
-
 ### <small>options.</small>bounce
 
 When the scroller meets the boundary it performs a small bounce animation. Disabling bounce may help reach smoother results on old or slow devices.
@@ -287,7 +280,7 @@ This is the suggested way to handle user interaction with clickable elements. To
 element.addEventListener('tap', doSomething, false); \\ Native
 $('#element').on('tap', doSomething); \\ jQuery
 ```
-    
+
 You can also customize the event name by passing a string. Eg:
 
 ```js
@@ -299,7 +292,6 @@ In this case you'd listen to `myCustomTapEvent`.
 Default: `false`
 
 <h2 id="scrollbars">Scrollbars</h2>
-
 The scrollbars are more than just what the name suggests. In fact internally they are referenced as *indicators*.
 
 An indicator listens to the scroller position and normally it just shows its position in relation to whole, but what it can do is so much more.
@@ -356,7 +348,6 @@ Default: `false`
 See the [scrollbar demo](http://lab.cubiq.org/iscroll5/demos/scrollbars/).
 
 <h3 id="styling-the-scrollbar">Styling the scrollbar</h3>
-
 So you don't like the default scrollbar styling and you think you could do better. Help yourself! iScroll makes dressing the scrollbar a snap. First of all set the `scrollbars` option to `'custom'`:
 
 ```js
@@ -379,7 +370,6 @@ If you set `resizeScrollbars: false` you could make the scrollbar of a fixed siz
 Please keep reading to the following section for a revelation that will shake your world.
 
 <h2 id="indicators">Indicators</h2>
-
 All the scrollbar options above are in reality just wrappers to the low level `indicators` option. It looks more or less like this:
 
 ```js
@@ -488,7 +478,7 @@ Same as above but X and Y are relative to the current position.
 ```js
 myScroll.scrollBy(0, -10);
 ```
-    
+
 Would scroll 10 pixels down. If you are at -100, you'll end up at -110.
 
 ### scrollToElement(el, time, offsetX, offsetY, easing)
@@ -504,7 +494,6 @@ The only mandatory parameter is `el`. Pass an element or a selector and iScroll 
 `easing` works the same way as per the **scrollTo** method.
 
 <h2 id="snap">Snap</h2>
-
 iScroll can snap to fixed positions and elements.
 
 ### <small>options.</small>snap
@@ -548,7 +537,6 @@ This would scroll to the 10th page on the horizontal axis in 1 second.
 Go to the next and previous page based on current position.
 
 <h2 id="zoom">Zoom</h2>
-
 To use the pinch/zoom functionality you better use the `iscroll-zoom.js` script.
 
 ### <small>options.</small>zoom
@@ -614,7 +602,6 @@ Juicy method that lets you zoom programmatically.
 `time` is the duration of the animation in milliseconds (optional).
 
 <h2 id="infinite-scrolling">Infinite scrolling</h2>
-
 iScroll integrates a smart caching system that allows to handle of a virtually infinite amount of data using (and reusing) just a bunch of elements.
 
 Infinite scrolling is in an early stage of development and although it can be considered stable, it is not ready for wide consumption.
@@ -624,7 +611,6 @@ Please review the [infinite demo](http://lab.cubiq.org/iscroll5/demos/infinite/)
 I will add more details as soon as the functionality evolves.
 
 <h2 id="advanced-options">Advanced options</h2>
-
 For the hardcore developer.
 
 ### <small>options.</small>bindToWrapper
@@ -691,7 +677,6 @@ By reducing this value you get better visual effect but the script becomes more 
 Default: `60`
 
 <h2 id="refresh">Mastering the refresh method</h2>
-
 iScroll needs to know the exact dimensions of both the wrapper and the scroller. They are computed at start up but if your elements change in size, we need to tell iScroll that you are messing with the DOM.
 
 This is achieved by calling the `refresh` method with the right timing. Please follow me closely, understanding this will save you hours of frustration.
@@ -721,7 +706,6 @@ We have placed the `refresh()` call into a zero timeout. That is likely all you 
 </div>
 
 <h2 id="custom-events">Custom events</h2>
-
 iScroll also emits some useful custom events you can hook to.
 
 To register them you use the `on(type, fn)` method.
@@ -745,7 +729,6 @@ The available types are:
 * **zoomEnd**, zoom ended.
 
 <h2 id="onscroll">onScroll event</h2>
-
 The `scroll` event is available on **iScroll probe edition** only (`iscroll-probe.js`). The probe behavior can be altered through the `probeType` option.
 
 ### <small>options.</small>probeType
@@ -761,7 +744,6 @@ This regulates the probe aggressiveness or the frequency at which the `scroll` e
 Please see the [probe demo](http://lab.cubiq.org/iscroll5/demos/probe/).
 
 <h2 id="key-bindings">Key bindings</h2>
-
 You can activate support for keyboards and remote controls with the `keyBindings` option. By default iScroll listens to the arrow keys, page up/down, home/end but they are (wait for it) totally customizable.
 
 You can pass an object with the list of key codes you want iScroll to react to.
@@ -784,7 +766,6 @@ keyBindings: {
 You can also pass a string (eg: `pageUp: 'a'`) and iScroll will convert it for you. You could just think of a key code and iScroll would read it out of your mind.
 
 <h2 id="scroller-info">Useful scroller info</h2>
-
 iScroll stores many useful information that you can use to augment your application.
 
 You will probably find useful:
@@ -807,7 +788,6 @@ myScroll.on('scrollEnd', function () {
 The above executes some code if the `x` position is lower than -1000px when the scroller stops. Note that I used `this` instead of `myScroll`, you can use both of course, but iScroll passes itself as `this` context when firing custom event functions.
 
 <h2 id="destroy">Destroy</h2>
-
 The public `destroy()` method can be used to free some memory when the iScroll is not needed anymore.
 
 ```js
@@ -816,7 +796,6 @@ myScroll = null;
 ```
 
 <h2 id="contributing">Contributing and CLA</h2>
-
 If you want to contribute to the iScroll development, before I can accept your submission I have to ask you to sign the [Contributor License Agreement](http://cubiq.org/iscroll/cla/). Unfortunately that is the only way to enforce the openness of the script.
 
 As an end user you have to do nothing of course. Actually the CLA ensures that nobody will even come after you asking for your first born for using the iScroll.
@@ -826,11 +805,9 @@ Please note that pull requests may take some time to be accepted. Testing iScrol
 Critical bugs are usually applied very quickly, but enhancements and coding style changes have to pass a longer review phase. *Remember that this is still a side project for me.*
 
 <h2 id="whos">Who is using iScroll</h2>
-
 It's impossible to track all the websites and applications that use the iScroll. It has been spotted on: Apple, Microsoft, People, LinkedIn, IKEA, Nike, Playboy, Bose, and countless others.
 
 <h2 id="license">License (MIT)</h2>
-
 
 Copyright (c) 2014 Matteo Spinelli, [cubiq.org](http://cubiq.org/)
 
