@@ -358,3 +358,24 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+/* 合作伙伴样式 */
+.wjs_parter {
+  background-color: #eee;
+  padding: 20px;
+  text-align: center;
+}
+.wjs_parter h3 {
+  width: 100%;
+  text-align: center;
+}
+.wjs_parter ul {
+  list-style: none;
+  display: inline-block;
+}
+.wjs_parter ul li {
+  float: left;
+  margin-right: 20px;
+}
+.wjs_parter ul li .wjs_icon {
+  font-size: 80px;
+}
