@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>{{ title }}</title>
+</head>
+<body>
+  <a> 名字： {{ name }} </a>
+  <a> 年龄： {{ age }} </a>
+  <a> 地址： {{ province }} </a>
+  <a> 爱好： {{ each hobbies }} {{ $value }} {{ /each }} </a>
+
+  <script type="text/javascript">
+    var foo = '{{ title }}'
+  </script>
+</body>
+</html>
