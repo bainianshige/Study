@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		div {
+			width: 100px;
+			height: 100px;
+			/* background-color: pink; */
+			background: linear-gradient(to right, blue, red);
+		}
+	</style>
+</head>
+<body>
+	<!-- 拖拽操作 -->
+	<div>1</div>
+	<div>2</div>
+	<script type="text/javascript">
+		var div = document.querySelector('div');
+		// 创建全局变量
+		var startX, startY, moveX, moveY, distanceX, distanceY;
+		var endX = 0;
+		var endY = 0;
+		// 开始触摸
+		// 如果为document添加事件，那么就能够捕获到当前响应事件的对象
+		document.addEventListener('touchstart', function (event) {
+			// 能够获取当前第一次触摸的对象
+			// console.log(event);
+			startX = event.targetTouches[0].clientX;
+			startY = event.targetTouches[0].clientY;
+			// console.log(startY);
+			// console.log(startX);
+		});
+		// 触摸滑动
+		document.addEventListener('touchmove', function (event) {
+			// 记录手指滑动过程中的坐标值
+			moveX = event.targetTouches[0].clientX;
+			moveY = event.targetTouches[0].clientY;
+			console.log(moveX);
+			console.log(moveY);
+			// 计算与上一次坐标的差异
+			distanceX = moveX - startX + endX;
+			distanceY = moveY - startY + endY;
+			// console.log(distanceX);
+			// console.log(distanceY);
+			// 设置偏移值偏移量 当前坐标差异+结束的坐标位置
+			// transform: translateX(length)
+			event.target.style.transform = 'translate('+ distanceX +'px, '+ distanceY  +'px)';
+		});
+		// 触摸结束
+		// document.addEventListener('touchend', function (event) {
+		// 	// 返回触摸结束的坐标值
+		// 	// console.log(event);
+		// 	endX = event.changedTouches[0].clientX;
+		// 	endY = event.changedTouches[0].clientY;
+		// })
+	</script>
+</body>
+</html>

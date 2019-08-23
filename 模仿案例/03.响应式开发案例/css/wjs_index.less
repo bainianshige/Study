@@ -1,0 +1,417 @@
+/* 定义变量 */
+@baseColor:#e92322;
+
+/* 头部快样式 */
+.wjs_header {
+	height: 50px;
+	line-height: 50px;
+	border-bottom: 1px solid #ccc;
+	.row {
+		height: 100%;
+		text-align: center;
+		> div:nth-of-type(-n+3) {
+			border-right: 1px solid #ccc;
+			> .wjs_code {
+				vertical-align: middle;
+				position: relative;
+				display: block;
+				img {
+					display: none;
+					position: absolute;
+					left: 50%;
+					transform: translateX(-50%);
+					top: 49px;
+					border: 1px solid #ccc;
+					border-top: none;
+					z-index: 999;
+				}
+				&:hover {
+					img {
+						display: block;
+					}
+				}
+			}
+		}
+		> div:nth-last-of-type(1) {
+			.btn-danger {
+				border-color: @baseColor;
+				background-color: @baseColor;
+			}
+			.btn {
+				padding: 3px 15px;
+			}
+			.btn-link {
+				color: #333;
+				&:hover {
+					text-decoration: none;
+				}
+			}
+		}
+	}
+}
+
+/* 导航栏样式 */
+.wjs_nav {
+	&.navbar {
+		margin-bottom: 0px;
+	}
+	.navbar-brand {
+		height: 80px;
+		line-height: 50px;
+		.wjs_icon {
+			font-size: 40px;
+		}
+		span:first-of-type {
+			color: @baseColor;
+		}
+		span:last-of-type {
+			color: #333;
+		}
+	}
+	/* 修改导航项的样式 */
+	.navbar-nav {
+		> li {
+			> a {
+				line-height: 50px;
+				font-size: 16px;
+			}
+			a:hover, a:focus {
+				color: #777;
+				background-color: transparent;
+				border-bottom: 3px solid @baseColor;
+			}
+		}
+		.active {
+			a, a:hover, a:focus {
+				background-color: transparent;
+				border-bottom: 3px solid @baseColor;
+			}
+		}
+	}
+	/* 移动端手风琴居中 */
+	.navbar-toggle {
+		margin-top: 23px;
+	}
+}
+
+/* 轮播图样式 */
+.wjs_banner {
+	.pcImg {
+    width: 100%;
+    height: 410px;
+    display: block;
+    /* 设置背景图片 */
+    /* 设置图片居中显示 */
+    background-position: center center;
+    /* 设置背景图片的大小 */
+    -webkit-background-size: cover;
+    background-size: cover;
+  }
+  .mobileImg {
+    width: 100%;
+    display: block;
+  }
+  .mobileImg img {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* 信息快样式 */
+.wjs_info {
+	padding: 30px;
+	.wjs_icon {
+		font-size: 30px;
+	}
+	.row {
+		> div {
+			margin-top: 20px;
+			> a:hover {
+				color: @baseColor;
+			}
+			> a:focus {
+				color: @baseColor;
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+/* 预约块样式 */
+.wjs_reverse {
+	line-height: 60px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	.wjs_icon {
+		font-size: 18px;
+	}
+	.reverse_now {
+		color: @baseColor;
+		border-bottom: 1px dashed @baseColor;
+	}
+	a:hover {
+		color: @baseColor;
+	}
+}
+
+/* 产品块样式 */
+.wjs_product {
+	clear: both;
+	background-color: #eee;
+	padding: 20px;
+	/* 导航条滚动 */
+	.tabs_parent {
+		width: 100%;
+		overflow: hidden;
+	}
+	/* 导航项样式的修改 */
+	.nav-tabs {
+		li {
+			margin-bottom: 0px;
+			padding: 0 15px;
+			a {
+				line-height: 50px;
+				border-radius: 0px;
+				border: none;
+			}
+			a:hover {
+				border-bottom: 3px solid @baseColor;
+			}
+			&.active {
+				a, a:hover, a:focus {
+					border: none;
+					border-radius: 0px;
+					background-color: transparent;
+					border-bottom: 3px solid @baseColor;
+				}
+			}
+		}
+	}
+	/* 产品详细信息块样式 */
+	.wjs_pBox {
+		height: 150px;
+		margin-top: 20px;
+		background-color: #fff;
+		position: relative;
+		.wjs_pLeft {
+			margin-right: 100px;
+			height: 150px;
+			padding-top: 10px;
+			> p {
+				width: 100%;
+				text-align: center;
+				font-size: 16px;
+			}
+			.row {
+				margin-left: -10px;
+				margin-right: -10px;
+				font-size: 12px;
+				/* 2n && even都表示偶数行 */
+				> div:nth-of-type(2n) {
+					text-align: right;
+				}
+			}
+		}
+		.wjs_pRight {
+			width: 100px;
+			height: 150px;
+			position: absolute;
+			top: 0;
+			right: 0;
+			border-left: 1px dashed #ccc;
+			text-align: center;
+			padding-top: 30px;
+			.wjs_tip {
+				width: 100%;
+				position: absolute;
+				top: 20px;
+				left: 50%;
+				transform: translateX(-50%);
+				span {
+					cursor: pointer;
+				}
+				span:first-of-type {
+					color: red;
+					border: 1px solid red;
+					// border-radius: 4px;
+				}
+				span:last-of-type {
+					color: blue;
+					border: 1px solid blue;
+					// border-radius: 4px;
+				}
+			}
+			> b {
+				font-size: 40px;
+				color: @baseColor;
+			}
+			> sub {
+				bottom: 0;
+				color: @baseColor;
+			}
+			&::before, &::after {
+				content: "";
+				width: 10px;
+				height: 10px;
+				border-radius: 50%;
+				background-color: #eee;
+				position: absolute;
+				left: -5px;
+			}
+			&::before {
+				top: -5px;
+				box-shadow: 0px -1px 1px #ddd inset;
+			}
+			&::after {
+				bottom: -5px;
+				box-shadow: 0px 1px 1px #ddd inset;
+			}
+		}
+		/* 设置当前active样式 */
+		&.active {
+			background-color: @baseColor;
+			.wjs_pRight {
+				b, sub, p {
+					color: #fff;
+				}
+			}
+			.wjs_pLeft {
+				color: #fff;
+				position: relative;
+				/* 使用伪元素添加左上角的标记 */
+				&::before {
+					content: "\E915";
+					/* 一定要记得设置字体 */
+					font-family: "wjs";
+					position: absolute;
+					top: -6px;
+					left: 0;
+					font-size: 28px;
+				}
+			}
+		}
+	}
+}
+
+/* 新闻块样式 */
+.wjs_news {
+	padding-top: 20px;
+	.wjs_nTitle {
+		line-height: 50px;
+		font-size: 25px;
+		border-bottom: 1px solid #ccc;
+		text-align: center;
+		position: relative;
+		&::before {
+			content: "";
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			border: 1px solid #ccc;
+			position: absolute;
+			bottom: -4px;
+			right: -8px;
+		}
+	}
+
+	/* 添加虚线边框 */
+	.wjs_newsLine {
+		width: 1px;
+		height: 100%;
+		position: absolute;
+		top: 0;
+		left: 45px;
+		border-left: 1px dashed @baseColor;
+	}
+
+	.nav-tabs {
+		border-bottom: none;
+		position: relative;
+		/* 使用伪元素添加虚线：伪元素必须要求父元素有具体的宽高值，所谓具体的宽高值是指在样式中设置了width/height */
+		// &::before {
+		// 	content: "";
+		// 	width: 1px;
+		// 	height: 420px;
+		// 	position: absolute;
+		// 	top: 0;
+		// 	left: 0;
+		// 	border-left: 1px solid @baseColor;
+		// }
+		> li {
+			margin-bottom: 60px;
+			> a {
+				background-color: #ccc;
+				width: 60px;
+				height: 60px;
+				border-radius: 50%;
+				border: none;
+			}
+			> a:hover {
+				border: none;
+				background-color: @baseColor;
+			}
+			&.active {
+				> a, a:hover, a:focus {
+					border: none;
+					background-color: @baseColor;
+				}
+			}
+			.wjs_icon {
+				font-size: 30px;
+				color: #fff;
+			}
+		}
+		> li:last-of-type {
+			margin-bottom: 0px;
+		}
+		/* 使用媒体查询设置屏幕宽度在798~992之间的li元素的样式 */
+		@media screen and (min-width: 768px) and (max-width: 992px) {
+			> li {
+				margin: 20px 30px;
+			}
+		}
+		/* 使用媒体查询设置屏幕宽度小于768时li元素的样式 */
+		@media screen and (max-width: 768px) {
+			> li {
+				margin: 20px 0px;
+				width: 25%;
+				> a {
+					margin-left: 30%;
+				}
+			}
+		}
+	}
+
+	// 新闻列表
+	.wjs_newslist {
+		list-style: none;
+		> li {
+			line-height: 60px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space:nowrap; 
+		}
+	}
+}
+
+/* 合作伙伴样式 */
+.wjs_parter {
+	background-color: #eee;
+	padding: 20px;
+	text-align: center;
+	h3 {
+		width: 100%;
+		text-align: center;
+	}
+	ul {
+		list-style: none;
+		display: inline-block;
+		li {
+			float: left;
+			margin-right: 20px;
+			.wjs_icon {
+				font-size: 80px;
+			}
+		}
+	}
+}
