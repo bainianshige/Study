@@ -1,0 +1,1 @@
+window.alert('hello 欢迎访问')
