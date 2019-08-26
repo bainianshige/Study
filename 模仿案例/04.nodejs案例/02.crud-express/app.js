@@ -17,10 +17,10 @@ var bodyParser = require('body-parser')
 
 var app = express()
 
-app.engine('html', require('express-art-template'))
-
 app.use('/node_modules/', express.static('./node_modules'))
 app.use('/public/', express.static('./public'))
+
+app.engine('html', require('express-art-template'))
 
 // 配置模板引擎和 body-parser 一定要在路由 app.use(router) 之前挂载
 // parse application/x-www-form-urlencoded

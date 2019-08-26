@@ -9,7 +9,7 @@
 */
 
 var fs = require('fs')
-
+var Student = require('./student')
 // Express 提供了更方便的方式，专门用来包装路由
 var express = require('express')
 
@@ -17,15 +17,28 @@ var express = require('express')
 var router = express.Router()
 
 // 2. 把路由都挂载到 router 路由容器中
+//渲染首页
 router.get('/students', (req, res) => {
   // readFile 的第二个参数是可选的，传入 utf8 就是告诉它把读取到的文件直接按照 utf8 编码转成我们能认识的字符
   // 也可以通过 data.toString() 的方法
-  fs.readFile('./db.json', 'utf8', (err, data) => {
-    if (err) return re.status(500).send('Server error')
-    
-    // 从文件中读取到的数据一定是字符串，这里一定要手动转成对象
-    var students = JSON.parse(data).students
+    // fs.readFile('./db.json', 'utf8', (err, data) => {
+    //   if (err) return re.status(500).send('Server error')
+      
+    //   // 从文件中读取到的数据一定是字符串，这里一定要手动转成对象
+    //   var students = JSON.parse(data).students
 
+    //   res.render('index.html', {
+    //   fruits: [
+    //     '苹果',
+    //     '香蕉',
+    //     '橘子'
+    //   ],
+    //   students: students
+    //   })
+    // })
+
+  Student.find(function (err, students) {
+    if (err) return res.status(500).send('Server error')
     res.render('index.html', {
     fruits: [
       '苹果',
@@ -37,10 +50,12 @@ router.get('/students', (req, res) => {
   })
 })
 
+//渲染添加学生页面
 router.get('/students/new', (req, res) => {
   res.render('new.html')
 })
 
+//处理添加学生请求
 router.post('/students/new', (req, res) => {
   // 1. 获取表单数据
   // 2. 处理
@@ -48,19 +63,47 @@ router.post('/students/new', (req, res) => {
   // 3. 发送表单响应
   
   // 先读取出来，转成对象， 然后往对象中 push 数据，然后把对象再转为字符串，然后把字符串再次写入文件
-  
+  Student.save(req.body, function (err) {
+    if (err) return res.status(500).send('Server error')
+    res.redirect('/students')
+  })
 })
 
+//渲染编辑页面
 router.get('/students/edit', (req, res) => {
-  res.send('new new new')
+  // 1.在客户端的列表页中处理链接问题(需要有 id 参数)
+  // 2.获取要编辑的学生 id 
+  // 3.渲染页面
+    // 根据 id 把学生信息查出来
+    // 使用模板引擎页面
+  Student.findById(parseInt(req.query.id), function (err, student) {
+    if (err) return res.status(500).send('Server error')
+    res.render('edit.html', {
+      student: student
+    })
+  })
 })
-
+//处理编辑请求
 router.post('/students/edit', (req, res) => {
-  res.send('new new new')
+  // 1. 获取表单数据
+  // 2.更新
+    // Student.update
+  // 3.发送响应
+  Student.updataById(req.body, (err) => {
+    if (err) return res.status(500).send('Server error')
+    res.redirect('/students')
+  })
 })
 
+//处理删除请求
 router.get('/students/delete', (req, res) => {
-  res.send('new new new')
+  // 1.获取要删除的 id
+  // 2.根据 id 执行删除操作
+  // 3.根据操作结果发送响应数据
+  Student.deleteById(req.query.id, function (err) {
+    if (err) return res.status(500).send('Server error')
+    res.redirect('/students')
+  })
 })
 
 // 3. 把 router 导出

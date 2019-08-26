@@ -296,7 +296,24 @@ app.use(function (req, res) {
 })
 ```
 
+### 重定向
+
+```javascript
+// 网页跳转到指定 URL
+res.redirect('/xxx)
+```
+
 ### CRUD 案例
+
+#### 模块化思想
+
+模块如何划分
+
++ 模块职责要单一
++ Vue
++ angular
++ React
++ 有利于学习前端三大框架
 
 #### 起步
 
@@ -306,14 +323,14 @@ app.use(function (req, res) {
 
 #### 路由设计
 
-| 请求方法 | 请求路径        | get参数 | post参数                       | 备注             |
-| -------- | --------------- | ------- | ------------------------------ | ---------------- |
-| GET      | /studens        |         |                                | 渲染首页         |
-| GET      | /studens/new    |         |                                | 渲染添加学生页面 |
-| POST     | /studens/new    |         | naem、age、gender、hobbies     | 处理添加学生请求 |
-| GET      | /studens/edit   | id      |                                | 渲染编辑页面     |
-| POST     | /studens/edit   |         | id、naem、age、gender、hobbies | 处理编辑请求     |
-| GET      | /studens/delete | id      |                                | 处理编辑请求     |
+| 请求方法 | 请求路径         | get参数 | post参数                       | 备注             |
+| -------- | ---------------- | ------- | ------------------------------ | ---------------- |
+| GET      | /students        |         |                                | 渲染首页         |
+| GET      | /students/new    |         |                                | 渲染添加学生页面 |
+| POST     | /students/new    |         | naem、age、gender、hobbies     | 处理添加学生请求 |
+| GET      | /students/edit   | id      |                                | 渲染编辑页面     |
+| POST     | /students/edit   |         | id、naem、age、gender、hobbies | 处理编辑请求     |
+| GET      | /students/delete | id      |                                | 处理删除请求     |
 
 #### 提取路由模板
 
@@ -337,22 +354,28 @@ var express = require('express')
 var router = express.Router()
 
 // 2. 把路由都挂载到 router 路由容器中
+//渲染首页
 router.get('/students', (req, res) => {})
 
+//渲染添加学生页面
 router.get('/students/new', (req, res) => {
   res.render('new.html')
 })
 
+//处理添加学生请求
 router.post('/students/new', (req, res) => {})
 
+//渲染编辑页面
 router.get('/students/edit', (req, res) => {
   res.send('new new new')
 })
 
+//处理编辑请求
 router.post('/students/edit', (req, res) => {
   res.send('new new new')
 })
 
+//处理删除请求
 router.get('/students/delete', (req, res) => {
   res.send('new new new')
 })
@@ -383,33 +406,124 @@ app.use(router)
   获取所有学生列表
   return []
 */
-exports.find = function () {
-
-}
+exports.find = function () {}
 
 /*
   添加保存学生
 */
-exports.save = function () {
-  
-}
+exports.save = function () {}
 
 /*
   更新学生
 */
-exports.updata = function () {
-  
-}
+exports.updata = function () {}
 
 /*
   删除学生
 */
-exports.delete = function () {
-  
+exports.delete = function () {}
+```
+
+#### 自己编写的步骤
+
++ 处理模板
++ 配置开放静态资源
++ 配置 `art-template` 模板引擎
++ 简单路由： /students 渲染静态页出来
++ 路由设计
++ 提取路由模块
++ 接下来的业务操作都需要处理文件数据，需要封装 student.js
++ 先学号 student.js 文件结构
+  + 查询所有学生的 API find
+  + findById
+  + save
+  + updateById
+  + deleteById
++ 实现具体功能
+  + 通过路由收到请求
+  + 接受请求中的数据(get、post)
+    + req.query
+    + req.body
+  + 调用数据操作 API 处理数据
+  + 根据操作结果给客户端发送响应
++ 业务功能顺序
+  + 列表
+  + 添加
+  + 编辑
+  + 删除
+
+## MongoDB
+
+## 异步编程
+
+### 回调函数
+
+不成立的情况：
+
+```javascript
+function add(x, y) {
+  console.log(1)
+  setTimeout(function () {
+    console.log(2)
+    var ret = x + y
+    return ret
+  }, 1000)
+  console.log(3)
+  //到这里执行就结束了， 不会等到前面的定时器，所以就返回了默认值 undefined
 }
+
+console.log(add(10, 20)) // => undefined
+```
+
+回调函数：
+
+```javascript
+function add(x, y, callback) {
+  // callback 就是回调函数
+  // var x = 10
+  // var y = 20
+  // var callback = function (ret) { console.log(ret) }
+  console.log(1)
+  setTimeout(function () {
+    console.log(2)
+    var ret = x + y
+    callback(ret)
+  }, 1000)
+}
+
+add(10, 20, function (ret) {
+    // 我现在拿到这个结果可以做任何操作
+    console.log(ret)
+})
+```
+
+基于原生 XMLHTTPRequest 封装 get 方法：
+
+```javascript
+function get(url, callback) {
+  var oReq = new XMLHttpRequest()
+  // 当请求加载成功之后要调用指定的函数
+  oReq.addEventListener("load", function () {
+    // 需要得到这里的 oReq.responseText
+    // console.log(oReq.responseText)
+    callback(oReq.responseText)
+  });
+  oReq.open("GET", url, true)
+  oReq.send()
+}
+
+get('/xxx', function (data) {
+  console.log(data)
+})
 ```
 
 
+
+注意：
+
+凡是需要获取一个函数中异步操作的结果，则必须通过回调函数获取
+
+`srtTimeout`    `readFile`     `writeFile`     `ajax` 
 
 ## 修改完代码服务器自动重启
 
