@@ -130,7 +130,7 @@ npm config list
     	* main 属性就记录了 art-template 的入口模块
     	* 然后加载使用这个第三方包， 最终加载的是文件
 
-### 如果都没有
+#### 如果都没有
 如果 package.json 文件不存在或者 amin 制定的入口模块不存在
 则 node 会自动找该目录下的 index.js ，也是就是说 index.js 会作为一个默认的被选项
 
@@ -141,12 +141,31 @@ npm config list
 注意：我们一个项目有且只有一个 `node_modules` ,放在项目根目录中，这样的话项目中所有的子目录中的代码都可以加载到第三方包
 不会出现有多个 `node_modules`
 
-### 模块查找机制
+#### 模块查找机制
 优先从缓存加载
 核心模块
 路径形式的文件模块
 第三方模块
   `node_modules/art-template/package.json`
+
+### package.json 和  package-lock.json
+
+npm 5 以前是不会有 `package-lock.json` 这个文件的
+
+npm 5 以后才加入了这个文件
+
+当安装包的时候，npm 都会生成或者更新 `package-lock.json` 这个文件
+
++ npm 5 以后的版本安装包不需要加 `--save` 参数，会自动保存依赖信息
++ 当安装包的时候，会自动创建或者是更新 `package-lock.json`这个文件
++ `package-lock.json` 这个文件会保存 `node_module` 中所有包的信息(版本、下载地址)
+  + 这样的话重新 `npm install` 的时候速度就可以提升
++ 从文件来看，有一个 `lock` 称之为锁
+  + 这个 `lock` 是用来锁定版本的
+  + 如果项目依赖 `1.1.1` 版本
+  + 如果重新 install 其实会下载最新版本，而不是 1.1.1
+  + 目的是希望可以锁住 1.1.1 这个版本
+  + 所以这个 `package-lock.json` 这个文件的另一个作用就是锁定版本号，防止自动升级到新版
 
 ## Express
 
@@ -453,6 +472,42 @@ exports.delete = function () {}
   + 删除
 
 ## MongoDB
+
+### 关系型数据库和非关系型数据库
+
+表就是关系
+
+或者说表与表之间存在关系
+
++ 所有的关系型数据库都需要通过 `sql` 语言来操作
++ 所有的关系型数据库在操作之前都需要设计表结构
++ 而且数据表还支持约束
+  + 唯一的
+  + 主键
+  + 默认值
+  + 非空
++ 非关系型数据库非常的灵活
++ 有的非关系型数据库就是 `key-value` 键值对
++ 但是 MongoDB 是长的最像关系型数据库的非关系型数据库
+  + 数据库 => 数据库
+  + 数据表 => 集合(数组)
+  + 表记录 => (文档对象)
++ MongoDB 不需要设计表结构
++ 就是说可以任意的往里面存数据，没有结构性一说
+
+### 安装
+
++ [64 位下载地址](https://www.mongodb.org/dl/win32/)
++ [32 位下载地址](https://www.mongodb.org/dl/win32/i386)
+
+​	
+
++ 下载
++ 安装
++ 配置环境变量
++ 最后输入 `mongod --version` 测试是否安装成功
+
+![1566833522239](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1566833522239.png)
 
 ## 异步编程
 
