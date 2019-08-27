@@ -473,6 +473,41 @@ exports.delete = function () {}
 
 ## MongoDB
 
+### MongoDB 数据库的基本概念
+
++ 可以有多个数据库
++ 一个数据库中可以有多个集合(表)
++ 一个集合中可以有多个文档文档(表记录)
++ 文档结构很灵活，没有任何限制
++ MongoDB 非常灵活， 不需要像 MySQL 一样先创建数据库、表、设计表结构
+  + 在这里需要:当需要插入数据的时候，指定往哪个数据库的哪个集合操作就可以了
+  + 一切由 MongoDB 来自动建库建表
+
+```javascript
+{
+  qq:{
+    users:[
+      {},  
+      {},  
+      {}
+      ...
+    ],
+    products:[
+        
+    ]
+    ...
+  },
+  taobao:{
+      
+  },
+  baidu:{
+      
+  }
+}
+```
+
+
+
 ### 关系型数据库和非关系型数据库
 
 表就是关系
@@ -507,7 +542,360 @@ exports.delete = function () {}
 + 配置环境变量
 + 最后输入 `mongod --version` 测试是否安装成功
 
-![1566833522239](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\1566833522239.png)
+### 启动和关闭数据库
+
+启动：
+
+```shell
+# mongodb 默认使用执行 mongod 命令所处盘符根目录下的 /data/db 作为自己的数据存储目录
+# 在第一次执行命令之前先自己手动新建一个 /data/db
+mongod
+```
+
+如果想要修改默认的数据存储目录，可以：
+
+```shell
+mongod --dbpath = 数据存储目录路径
+```
+
+停止：
+
+```shell
+在开始服务的控制台，直接 Ctrl+c 即可停止
+或者直接关闭开启服务的控制台也可以
+```
+
+### 连接和退出数据库
+
+链接：
+
+```shell
+# 该命令默认链接本机的 MongoDB 服务
+mongo
+```
+
+退出：
+
+```shell
+# 在连接状态输入 exit 退出连接
+exit
+```
+
+### 基本命令
+
++ `show dbs`
+  + 查看显示所有数据库
++ `db`
+  + 查看当前操作的数据库
++ `use 数据库名称`
+  + 切换到指定的数据(如果没有会新建)
++ `show collections` 
+  + 查看当前数据库
++ `db.文件名.find()`
+  + 查看文件内容
++ 插入数据
+
+### 在 Node 中如何操作 MongoDB 数据
+
+### 使用官方的 `mongodb` 包来操作
+
+> https://github.com/mongodb/node-mongodb-native
+
+### 使用第三方 `mongoose` 来操作 `MongoDB` 数据库
+
+第三方包： `mongoose` 基于 `MongoDB` 官方 `mongodb` 包再一次做了封装
+
++ 网址： https://mongoosejs.com/
+
+#### 安装
+
+```shell
+npm i mongoose
+```
+
+#### hello world
+
+```javascript
+// 连接 MongoDB 数据库
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
+
+// 创建一个模型， 就是在设计数据库
+// MongoDB 是动态的，非常灵活，只需要在代码中设计你的数据库就可以了
+// MongoDB 这个包就可以让设计编写过程变得非常简单
+const Cat = mongoose.model('Cat', { name: String });
+
+
+// 实例化一个 Cat
+const kitty = new Cat({ name: 'Zildjian' });
+
+// 持久化保存 kitty 实例
+kitty.save().then(() => console.log('meow'));
+```
+
+#### 官方指南
+
+##### 设计 Schema 发布 Model
+
+```javascript
+var mongoose = require('mongoose')
+
+var Schema = mongoose.Schema
+
+// 1.链接数据库
+// 指定连接的数据库不需要存在，当插入第一条数据之后会自动创建出来
+mongoose.connect('mongodb://localhost:27017/itcast');
+
+// 2.设计集合结构(表结构)
+// 字段名称就是表结构中的属性名称
+// 约束的目的是为了保证数据的完整性，不要有脏数据
+var userSchema = new Schema({
+  username: {
+    type: String,
+    required: true  // 必须有，不能为空
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String
+  }
+});
+
+/*
+var blogSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
+});
+*/
+
+// 3.将文档结构发布为模型
+// mongoose.model 方法就是用来把一个架构发布为 model 
+// 第一个参数： 传入一个大写名词单数字符串用来表示你的数据库名称
+//             mongoose 会自动将大写名词字符串生成 小写复数 的集合名称
+//             例如这里的 User 最终会变为 users 集合名称
+// 第二个参数：架构 Schema
+
+// 返回值：模型构造函数
+var User = mongoose.model('User', userSchema)
+
+// 4. 有了模型构造函数之后，就可以使用这个构造函数对 users集合中的数据为所欲为(增删改查)var mongoose = require('mongoose')
+
+var Schema = mongoose.Schema
+
+// 1.链接数据库
+// 指定连接的数据库不需要存在，当插入第一条数据之后会自动创建出来
+mongoose.connect('mongodb://localhost:27017/itcast');
+
+// 2.设计集合结构(表结构)
+// 字段名称就是表结构中的属性名称
+// 约束的目的是为了保证数据的完整性，不要有脏数据
+var userSchema = new Schema({
+  username: {
+    type: String,
+    required: true  // 必须有，不能为空
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String
+  }
+});
+
+/*
+var blogSchema = new Schema({
+  title:  String,
+  author: String,
+  body:   String,
+  comments: [{ body: String, date: Date }],
+  date: { type: Date, default: Date.now },
+  hidden: Boolean,
+  meta: {
+    votes: Number,
+    favs:  Number
+  }
+});
+*/
+
+// 3.将文档结构发布为模型
+// mongoose.model 方法就是用来把一个架构发布为 model 
+// 第一个参数： 传入一个大写名词单数字符串用来表示你的数据库名称
+//             mongoose 会自动将大写名词字符串生成 小写复数 的集合名称
+//             例如这里的 User 最终会变为 users 集合名称
+// 第二个参数：架构 Schema
+
+// 返回值：模型构造函数
+var User = mongoose.model('User', userSchema)
+
+// 4. 有了模型构造函数之后，就可以使用这个构造函数对 users集合中的数据为所欲为(增删改查)
+```
+
+#####  增加数据
+
+```javascript
+var admin = new User({
+  username: 'admin',
+  password: '123456',
+  email: 'admin@admin.com'
+})
+
+// admin.save().then(() => console.log('保存成功'))
+admin.save(function (err, ret) {
+  if (err) {
+    console.log('文件保存失败')
+  } else {
+    console.log('文件保存成功')
+    console.log(ret)
+  }
+})
+```
+
+##### 查询数据
+
+查询所有
+
+```javascript
+// find 查询所有
+User.find(function (err, ret) {
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+```
+
+按条件查询所有
+
+```javascript
+User.find({
+  username: 'zs'
+}, function (err, ret) {
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+```
+
+按条件查询单个
+
+```javascript
+User.findOne({
+  username: 'admin',
+  password: '123456'
+}, function (err, ret) {
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+```
+
+##### 删除数据
+
+根据条件删除所有
+
+```javascript
+User.remove({
+  username: 'zs'
+}, function (err, ret) {
+  if (err) { 
+    console.log('文件删除失败') 
+  } else {
+    console.log('文件删除成功')
+    console.log(ret)
+  }
+})
+```
+
+根据条件删除一个
+
+```javascript
+Model.findOneAndRemove(conditions,[options],[callback])
+```
+
+根据 id 删除一个
+
+```javascript
+Model.findByIdAndRemove(id, [options], [callback])
+```
+
+##### 更新数据
+
+根据条件更新所有
+
+```javascript
+Model.update(conditions, doc, [options], [callback])
+```
+
+根据指定条件更新一个
+
+```javascript
+Model.findOneAndUpdate([conditions], [update], [options], [callback])
+```
+
+根据 id 更新一个
+
+```javascript
+User.findByIdAndUpdate('5d64cf132b1b5e27345aa7ce', {
+  password: '123'
+}, function (err, ret) {
+  if (err) {
+    console.log('更新失败')
+  } else {
+    console.log('更新成功')
+  }
+})
+```
+
+## 使用 Node 操作 MySQL  数据库
+
+安装
+
+```shell
+npm install --save mysql
+```
+
+案例
+
+```javascript
+var mysql      = require('mysql');
+
+// 1.创建连接
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'rott',
+  database : 'my_db'
+});
+
+// 2.连接数据库 打开冰箱门
+connection.connect();
+ 
+// 3.执行数据操作 把大象放到冰箱
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
+});
+ 
+// 4.关闭连接 关闭冰箱门
+connection.end();
+```
+
+
 
 ## 异步编程
 
@@ -580,7 +968,13 @@ get('/xxx', function (data) {
 
 `srtTimeout`    `readFile`     `writeFile`     `ajax` 
 
-## 修改完代码服务器自动重启
+### Promise
+
+callback hell
+
+## 其它
+
+### 修改完代码服务器自动重启
 
 我们这可以使用一个第三方命令行工具： `nodemon` 来帮我们解决频繁修改代码重启服务器问题
 

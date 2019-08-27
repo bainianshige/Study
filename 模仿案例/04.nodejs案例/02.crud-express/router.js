@@ -63,10 +63,14 @@ router.post('/students/new', (req, res) => {
   // 3. 发送表单响应
   
   // 先读取出来，转成对象， 然后往对象中 push 数据，然后把对象再转为字符串，然后把字符串再次写入文件
-  Student.save(req.body, function (err) {
+  new Student(req.body).save(function (err) {
     if (err) return res.status(500).send('Server error')
     res.redirect('/students')
   })
+  // Student.save(req.body, function (err) {
+  //   if (err) return res.status(500).send('Server error')
+  //   res.redirect('/students')
+  // })
 })
 
 //渲染编辑页面
@@ -76,7 +80,13 @@ router.get('/students/edit', (req, res) => {
   // 3.渲染页面
     // 根据 id 把学生信息查出来
     // 使用模板引擎页面
-  Student.findById(parseInt(req.query.id), function (err, student) {
+
+  // replace
+    // 字符串模式
+    //   简单，但是不支持全局和忽略大小写问题
+    // 正则表达式模式
+    //   强大，支持全局和忽略大小写 
+  Student.findById(req.query.id.replace(/"/g, ''), function (err, student) {
     if (err) return res.status(500).send('Server error')
     res.render('edit.html', {
       student: student
@@ -89,7 +99,8 @@ router.post('/students/edit', (req, res) => {
   // 2.更新
     // Student.update
   // 3.发送响应
-  Student.updataById(req.body, (err) => {
+  var id = req.body.id.replace(/"/g, '')
+  Student.findByIdAndUpdate(id, req.body, (err) => {
     if (err) return res.status(500).send('Server error')
     res.redirect('/students')
   })
@@ -100,7 +111,9 @@ router.get('/students/delete', (req, res) => {
   // 1.获取要删除的 id
   // 2.根据 id 执行删除操作
   // 3.根据操作结果发送响应数据
-  Student.deleteById(req.query.id, function (err) {
+
+  var id = req.query.id.replace(/"/g, '')
+  Student.findByIdAndRemove(id, function (err) {
     if (err) return res.status(500).send('Server error')
     res.redirect('/students')
   })

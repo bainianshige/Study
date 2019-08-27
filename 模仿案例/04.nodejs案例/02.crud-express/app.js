@@ -34,5 +34,5 @@ app.use(bodyParser.json())
 app.use(router)
 
 app.listen(3000, () => {
-  console.log('app running...')
+  console.log('app 3000 running...')
 })
