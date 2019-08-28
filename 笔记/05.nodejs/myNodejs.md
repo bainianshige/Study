@@ -167,6 +167,55 @@ npm 5 以后才加入了这个文件
   + 目的是希望可以锁住 1.1.1 这个版本
   + 所以这个 `package-lock.json` 这个文件的另一个作用就是锁定版本号，防止自动升级到新版
 
+## path 路径操作模块
+
+> 参考文档 ： https://nodejs.org/dist/latest-v10.x/docs/api/path.html
+
++ path.basename
+  + 获取一个路径的文件名 (默认包含扩展名)
++ path.dirname
+  + 获取一个路径中的目录部分
++ path.extname
+  + 获取一个路径中的扩展名部分
++ path.parse
+  + 把一个路径转为对象
+  + root 根路径
+  + dir 包含后缀名的文件名
+  + base 后缀名
+  + name  不包含后缀名的文件名
++ path.join
+  + 当需要进行路径拼接的时候，推荐使用这个方法
++ path.isAbsolute 判断一个路径是否是绝对路径
+
+### Node中的相对路径
+
+文件操作中，相对路径是相对于执行 node 命令所处的路径
+
+```javascript
+// 相对于执行 node 命令所处的终端路径
+./xxx.txt
+```
+
+在文件操作中，使用相对路径是不可靠的
+
+为了解决这个问题，需要把相对路径变为绝对路径
+
+可以使用 Node 中的非模块成成员 `__dirname` 、`filename` 来解决问题
+
+在拼接路径的过程中，为了避免手动拼接错误，推荐使用： `path.join()` 来辅助拼接
+
+在文件操作中使用相对路径都统一转化为**动态的绝对路径**
+
+> 补充：模块中的路径标识和这里的路径没关系，不受影响（就是相对于文件模块）
+
+### Node中的非模块成员
+
+在每一个模块中，除了 `reruire` 、`exports` 等模块相关 API 之外，还有两个特殊的成员：
+
++ `__dirname` **动态获取**可以用来获取当前文件模块所属目录的绝对路径
++ `__filename ` **动态获取**可以用来获取当前文件的绝对路径
++ `__dirname`  和 `__filename `  是不受执行 node 命令所属路径影响的
+
 ## Express
 
 原生的 `http` 在某些方面表现不足以应对开发需求，所以就需要使用框架来加快开发效率，框架的目的就是提高效率，让代码更高度统一。
@@ -228,7 +277,7 @@ app.use(sxpress.static('public'))
 app.use(express.static('files'))
 
 //访问方式 /public/xxx
-app.use('/public', express.static('public'))
+app.use('/public/', express.static('./public/'))
 
 //访问方式 /static/xxx
 app.use('/static', express.static('public'))
@@ -250,7 +299,11 @@ npm install --save express-art-template
 配置：
 
 ```javascript
-app.engine('art', require('express-art-template'))
+// 第一个参数用来配置视图的后缀名，这里是 art ，那么存储在 views 目录中的模板文件必须是 xxx.art
+// app.engine('art', require('express-art-template'))
+
+// 可以把 art 改为 html
+app.engine('html', require('express-art-template'))
 ```
 
 使用：
@@ -274,8 +327,6 @@ Express 内置了一个 API，可以通过 `req.query`来获取
 ```javascript
 req.query
 ```
-
-
 
 ###  在 Express 获取表单 POST 请求体数据
 
@@ -861,6 +912,36 @@ User.findByIdAndUpdate('5d64cf132b1b5e27345aa7ce', {
 })
 ```
 
+#### 用户注册
+
++ 判断用户是否存在
+  + 如果已存在，结束注册
+  + 如果不存在，注册 (保存一条用户信息)
+
+```javascript
+User.findOne({
+    username: 'admin'
+})
+.then(function (user) {
+    if (user) {
+    	// 用户已存在，不能注册
+        console.log('用户已注册')
+    } else {
+        // 用户不存在，可以注册
+        return new User({
+            username: 'admin1',
+            password: '123',
+            email: '123@123.com'
+        }).save()
+    }
+})
+.then(function (ret) {
+    
+})
+```
+
+
+
 ## 使用 Node 操作 MySQL  数据库
 
 安装
@@ -960,8 +1041,6 @@ get('/xxx', function (data) {
 })
 ```
 
-
-
 注意：
 
 凡是需要获取一个函数中异步操作的结果，则必须通过回调函数获取
@@ -970,7 +1049,7 @@ get('/xxx', function (data) {
 
 ### Promise
 
-callback hell
+> 参考文档： http://es6.ruanyifeng.com/#docs/promise
 
 无法保证顺序的代码
 
@@ -1023,8 +1102,6 @@ fs.readFile('./data/a.txt', 'utf8', (err, data) => {
 为了解决以上编码方式带来的问题(回调地狱嵌套)，所以在 `EcmaScript 6` 中新增了一个API：`Promiose`
 
 - `Promiose` 的英文就是承诺、保证的意思 (`I promiose you`)
-
-
 
 Promiose 基本语法
 
@@ -1119,3 +1196,41 @@ nodemon app.js
 ```
 
 只要是通过 `nodemon app.js` 启动的服务，会监视文件变化，当文件发生变化的时候，自动重启服务器
+
+## 综合案例
+
+### 目录结构
+
+```
+|-- app.js
+|-- controllers
+|-- models
+|-- node_modules       第三方包
+|-- package.json       包描述文件
+|-- package-lock.json  第三方包版本锁定文件
+|-- public             公共的静态资源
+|-- README.md          项目说明文档
+|-- routes
+|-- views              存储视图目录
+```
+
+### 模板页
+
++ [art-template 子模板]([https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E5%AD%90%E6%A8%A1%E6%9D%BF](https://aui.github.io/art-template/zh-cn/docs/syntax.html#子模板))
+
++ [art-template模板继承]([https://aui.github.io/art-template/zh-cn/docs/syntax.html#%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF](https://aui.github.io/art-template/zh-cn/docs/syntax.html#模板继承))
+
+### 路由设计
+
+| 路径      | 方法 | get参数 | post参数                  | 是否需要登录 | 备注         |
+| --------- | ---- | ------- | ------------------------- | ------------ | ------------ |
+| /         | GET  |         |                           |              | 渲染首页     |
+| /register | GET  |         |                           |              | 渲染注册页面 |
+| /register | POST |         | email、nickname、password |              | 处理注册请求 |
+| /login    | GET  |         |                           |              | 渲染登录页面 |
+| /login    | POST |         | email、posswoed           |              | 处理登录请求 |
+| /logout   | GET  |         |                           |              | 处理退出请求 |
+
+### 模板设计
+
+### 功能实现
