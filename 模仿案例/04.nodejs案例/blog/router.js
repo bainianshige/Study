@@ -20,7 +20,11 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  res.render('index.html')
+  // 1.获取表单提交的数据
+  
+  // 2.操作数据库
+  // 3.发送相应
+
 })
 
 router.get('/logout', (req, res) => {
