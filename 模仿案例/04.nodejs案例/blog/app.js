@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const router = require('./router.js')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 
 var app = express()
 
@@ -18,6 +19,23 @@ app.set('views', path.join(__dirname, './views/'))  // 默认就是 ./views 目�
 app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
+
+// 在 Express 这个框架中，默认不支持 Session 和 Cookie
+// 但是我们可以使用第三方插件： express-session 来解决
+// 1.npm install express-session
+// 2.配置(一定要在路由挂载之前)
+// 3.使用
+  // 当把这个插件配置好之后，就可以通过 req.session 来访问和设置 Session 成员
+  // 添加 Session 数据: req.session.foo = 'bar'
+  // 访问 Session 数据: req.session.foo
+
+app.use(session({
+  // 配置加密字符串，会在原有的加密基础之上和这个字符串拼起来去加密
+  // 目的是为了增加安全性，防止客户端恶意伪造
+  secret: 'itchengeng', 
+  resave: false,
+  saveUninitialized: true // 无论是否使用 Session ，都会默认直接分配一把钥匙
+}))
 
 // 把路由挂载到 app 中
 app.use(router)

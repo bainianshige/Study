@@ -373,6 +373,47 @@ app.use(function (req, res) {
 res.redirect('/xxx)
 ```
 
+### Express 中使用第三方包`express-session` 实现 `Session` 、`Cookie`
+
+> 参考文档： https://github.com/expressjs/session
+
+#### 安装
+
+``` shell
+npm install express-session
+```
+
+#### 配置
+
+```javascript
+// 引包
+var session = require('express-session')
+
+// 该插件为 req 请求对象添加一个成员： req.session 默认是一个对象
+// 这是最简单的配置方式
+app.use(session({
+  // 配置加密字符串，会在原有的加密基础之上和这个字符串拼起来去加密
+  // 目的是为了增加安全性，防止客户端恶意伪造
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true  // true：无论是否使用 Session ，都会默认直接分配一把钥匙
+}))
+```
+
+#### 使用
+
+```javascript
+// 添加 Session 数据
+req.session.foo = 'bar'
+
+// 获取 Session 数据
+req.session.foo
+```
+
+#### 提示
+
+默认 Session 数据是内存存储的，服务器一旦重启就会丢失，真正的生产环境会把 Session 进行持久化存储
+
 ### CRUD 案例
 
 #### 模块化思想
@@ -644,6 +685,10 @@ exit
   + 查看当前数据库
 + `db.文件名.find()`
   + 查看文件内容
++ `db.dropDatabase()`
+  + 删除当前数据库，默认为 test
++ `db.collection.drop()`
+  + 集合删除
 + 插入数据
 
 ### 在 Node 中如何操作 MongoDB 数据
@@ -1202,15 +1247,16 @@ nodemon app.js
 ### 目录结构
 
 ```
-|-- app.js
+|-- app.js			   项目的入口文件
 |-- controllers
-|-- models
+|-- models			   存储使用 mongoose 设计的数据模型
 |-- node_modules       第三方包
 |-- package.json       包描述文件
 |-- package-lock.json  第三方包版本锁定文件
 |-- public             公共的静态资源
 |-- README.md          项目说明文档
-|-- routes
+|-- routes			   若果业务比较多，代码量大，最好把路由按照业务的分类存储到 routes 目录中
+|-- router.js		   简单一点把所有的路由都放到这个文件
 |-- views              存储视图目录
 ```
 
@@ -1234,3 +1280,21 @@ nodemon app.js
 ### 模板设计
 
 ### 功能实现
+
+### 书写步骤
+
++ 创建目录结构
++ 整合静态页-模板页
+  + include
+  + block
+  + extend
++ 设计用户登录、退出、注册路由
++ 用户注册
+  + 先处理好客户端页面的内容（表单控件的 name、收集表单数据、发起请求）
+  + 服务端
+    + 获取客户端表单请求的数据
+    + 操作数据库
+      + 如果有错，发送 500 告诉客户端服务器出错
+      + 其他的根据业务不同的响应数据
++ 用户登录
++ 用户退出
