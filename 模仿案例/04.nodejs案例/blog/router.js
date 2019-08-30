@@ -16,7 +16,7 @@ router.get('/login', (req, res) => {
   res.render('login.html')
 })
 
-router.post('/login', (req, res) => {
+router.post('/login', (req, res, next) => {
   // 1. 获取表单数据
   // 2. 查询数据库用户名密码是否正确
   // 3. 发送响应数据
@@ -26,10 +26,11 @@ router.post('/login', (req, res) => {
     password: md5(md5(body.password))
   }, (err, user) => {
     if (err) {
-      return res.status(500).json({
-        err_code: 500,
-        message: err.message
-      })
+      // return res.status(500).json({
+      //   err_code: 500,
+      //   message: err.message
+      // })
+      return next(err)
     }
 
     if (!user) {
@@ -49,11 +50,11 @@ router.post('/login', (req, res) => {
   })
 })
 
-router.get('/register', (req, res) => {
+router.get('/register', (req, res, next) => {
   res.render('register.html')
 })
 
-router.post('/register', (req, res) => {
+router.post('/register', (req, res, next) => {
   // 1.获取表单提交的数据（req.body）
   // 2.操作数据库
     // 判断该用户是否存在
@@ -72,10 +73,11 @@ router.post('/register', (req, res) => {
     ]
   }, function (err, data) {
     if (err) {
-      return res.status(500).json({
-        success: false,
-        message: '服务端错误'
-      })
+      // return res.status(500).json({
+      //   success: false,
+      //   message: '服务端错误'
+      // })
+      return next(err)
     }
     if (data) {
       // 邮箱或者昵称已存在
@@ -90,10 +92,11 @@ router.post('/register', (req, res) => {
 
     new User(body).save(function (err, user) {
       if (err) {
-        return res.status(500).json({
-          err_code: 500,
-          message: 'Internal error'
-        })
+        // return res.status(500).json({
+        //   err_code: 500,
+        //   message: 'Internal error'
+        // })
+        return next(err)
       }
 
       // 注册成功，使用 Session 记录用户的登录状态
@@ -152,7 +155,7 @@ router.post('/register', (req, res) => {
 // })
 
 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
   // 清除登录状态
   req.session.user = null
 

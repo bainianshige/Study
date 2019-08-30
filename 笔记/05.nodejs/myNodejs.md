@@ -58,7 +58,7 @@
 + npm 命令 --help
   + 查看指定命令的使用帮助
 
-### 解决 npm 被墙问题
+### 解决 npm 被墙问题（建议使用rnm-在vue笔记中有记载）
 
 npm 存储包文件的服务器在国外，有时候会被墙，速度很慢
 
@@ -562,6 +562,63 @@ exports.delete = function () {}
   + 添加
   + 编辑
   + 删除
+
+### Express 中间件
+
+> https://expressjs.com/en/resources/middleware.html
+
+中间件的本质就是一个请求处理方法，我们把用户从请求到响应的整个过程分发到多个中间件去处理，这样做的目的是提高代码的灵活性，动态可扩展性
+
++ 在同一个请求所经过的中间件都是同一个请求对象和响应对象
+
+#### 应用程序级别中间件
+
+万能匹配（不关心任何请求路径和请求方法）
+
+```javascript
+  // 任何请求都会进入这个中间件
+  // 中间件本身是一个方法，方法接收三个参数
+    // Request 请求对象
+    // Response 响应对象
+    // Next 下一个中间件
+  // 当一个请求进入中间件之后，如果不调用 Next() 则会停留在当前中间件
+  // 所以 next 是一个方法，用来调用下一个中间件的
+  // 调用 next 也是要匹配的（不是调用紧挨着的那一个）
+
+  app.use((req, res, next) => {
+    console.log('1')
+    next()
+  })
+```
+
+关心请求路径的中间件
+
+```javascript
+// 关心请求路径的中间件 (以 /xxx 开头的路劲中间件)
+app.use('/a', function (req, res, next) {
+  console.log(req.url)
+})
+```
+
+#### 路由级别中间件
+
+严格匹配请求方法和请求路径的中间件
+
+```javascript
+app.get('/', (req, res, next) => {
+  console.log('/')
+})
+```
+
+#### 第三方中间件
+
++ [body-parser](https://expressjs.com/en/resources/middleware/body-parser.html)
++ [compression](https://expressjs.com/en/resources/middleware/compression.html)
++ [cookie-parser](https://expressjs.com/en/resources/middleware/cookie-parser.html)
++ [morgan](https://expressjs.com/en/resources/middleware/morgan.html)
++ [response-time](https://expressjs.com/en/resources/middleware/response-time.html)
++ [serve-static](https://expressjs.com/en/resources/middleware/serve-static.html)
++ [session](https://expressjs.com/en/resources/middleware/session.html)
 
 ## MongoDB
 

@@ -37,8 +37,24 @@ app.use(session({
   saveUninitialized: true // 无论是否使用 Session ，都会默认直接分配一把钥匙
 }))
 
+
 // 把路由挂载到 app 中
 app.use(router)
+
+
+// 配置一个处理 404 的中间件
+app.use(function (req, res) {
+  res.render('404.html')
+})
+
+// 配置一个全局错误处理中间件
+// 当调用 next 的时候，如果传递了参数，则直接往后找到带有 四个参数的应用程序级别的中间件
+app.use(function (err, req, res, next) {
+  res.status(500).json({
+    err_code: 500,
+    message: err.message
+  })
+})
 
 app.listen(5000, () => {
   console.log('app 5000 running...')
