@@ -14,3 +14,8 @@
 >
 > ​			但是在装包的时候用的还是 `npm`
 
+### webpack安装的两种方式
+
++ 运行`npm i webpack -g`全局安装webpack，这样就能在全局使用webpack的命令
++ 在项目根目录中运行`npm i webpack --save-dev`安装到项目依赖中
+
