@@ -1,0 +1,23 @@
+{{ extend './layout.html'}}
+
+{{ block 'head' }}
+  <style type="text/css">
+    body {
+      background-color: pink;
+    }
+  </style>
+{{ /block }}
+
+{{ block 'content'}}
+<div>
+  <h1>填坑</h1>
+</div>
+{{ /block }}
+
+{{ block 'script' }}
+<script>
+  window.alert('index.html 页面的脚本')
+</script>
+{{ /block }}
+
+

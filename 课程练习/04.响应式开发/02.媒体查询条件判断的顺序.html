@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>媒体查询条件判断的顺序</title>
+	<style type="text/css">
+		/* 当判断最小的值，并且从小到大进行判断(满足条件的时候) */
+		/* 1.向上兼容:如果设置了宽度更小的样式，默认这些样式也会传递到宽度更大的条件范围内; */
+		/* 2.向下覆盖：宽度更大的样式会将前面宽度更小的样式覆盖 */
+
+
+		/* 书写建议 */
+		/* 1.如果是判断最小值(min-width)，那么就应该从小到大写 */
+		/* 2.如果是判断最大值(max-width)，那么就应该从大到小写 */
+		body {
+			background-color: green;
+		}
+	
+		/* 当宽度在768~992时：pink, */
+		@media screen and (min-width: 768px) {
+			body {
+				background-color: pink;
+			}
+		}
+
+		/* 当宽度在992~1200时：blue, */
+		@media screen and (min-width: 992px) {
+			body {
+				background-color: blue;
+			}
+		}
+
+		/* 当宽度在1200以上：purple */
+		@media screen and (min-width: 1200px) {
+			body {
+				background-color: purple;
+			}
+		}
+	</style>
+</head>
+<body>
+<!-- 需求：
+		当宽度小于768时: green,
+		当宽度在768~992时：pink,
+		当宽度在992~1200时：blue,
+		当宽度在1200以上：purple -->
+</body>
+</html>

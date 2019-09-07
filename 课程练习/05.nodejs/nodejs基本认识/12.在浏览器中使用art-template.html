@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>在浏览器中使用art-template</title>
+</head>
+<body>
+  <div id="container"></div>
+  <!-- 注意：在浏览器中需要引用lib/template-web.js -->
+  <!-- 强调：模板引擎不关心字符串内容，只关心模板标记语法，例如 {{}}
+            {{}} 语法被称为mustache语法 -->
+  <script src="node_modules/art-template/lib/template-web.js"></script>
+  <script type="text/template" id="tpl">
+    <a> 名字： {{ name }} </a>
+    <a> 年龄： {{ age }} </a>
+    <a> 地址： {{ province }} </a>
+    <a> 爱好： {{ each hobbies }} {{ $value }} {{ /each }} </a>
+  </script>
+  <script>
+    var ret = template('tpl', {
+      name: 'Jack',
+      age: 18,
+      province: '地址',
+      hobbies: ['电脑', '动漫', '未知']
+    })
+    let con = document.querySelector('#container')
+    con.innerHTML = ret;
+  </script>
+</body>
+</html>

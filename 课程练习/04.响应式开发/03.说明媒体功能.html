@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>说明媒体功能</title>
+	<style type="text/css">
+	
+		/* min-width:在pc和移动端都能正常的响应，效果一致，它是当前可是区域的宽度 */
+		/* min-device-width：在移动端和期望值一样， device：设备，他是指当前设备的宽度，当拖动来改变浏览器大小的时候，当前终端设备的宽度并不会变化，意味着媒体查询条件不会响应 */
+
+		body {
+			background-color: red;
+		}
+
+		/* min-width: 768px :说明屏幕宽度大于等于768px满足条件; */
+		@media screen and (min-width: 768px) {
+			body {
+				background-color: pink;
+			}
+		}
+
+		@media screen and (min-width: 992px) {
+			body {
+				background-color: skyblue;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+</body>
+</html>
