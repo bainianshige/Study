@@ -1,7 +1,7 @@
 <template>
   <div>
     底部组件
-    <button @click="call">发送数据通信</button>
+    <!-- <button @click="call">发送数据通信</button> -->
   </div>
 </template>
 

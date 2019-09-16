@@ -308,19 +308,37 @@ cnpm install url-loader file-loader --save-dev
 + devDependencies  里面的插件只用于开发环境，不用于生产环境，而 dependencies  是需要发布到生产环境的
 
 + 比如写一个项目要依赖于jQuery，没有这个包的依赖运行就会报错，这时候就把这个依赖写入dependencies 
+
 + 而使用的一些构建工具比如glup、webpack这些只是在开发中使用的包，上线以后就和他们没关系了，所以将它写入devDependencies。
+
++ 开发环境安装示例
+
+  ```shell
+  npm install xxx --save-dev
+  # 可以简写为
+  npm install xxx -D
+  ```
+
++ 生产环境安装示例
+
+  ```shell
+  npm install xxx --save
+  # 可以简写为
+  npm install xxx -S
+  ```
+
+  
 
 ### 删除 node_modules
 
 + 安装
 
-  + ```shell
-    npm install rimraf -g
-    ```
-  
+```shell
+npm install rimraf -g
+```
 
 + 执行删除
 
-  + ```shell
-    rimraf node_modules
-    ```
+```shell
+rimraf node_modules
+```
