@@ -96,12 +96,15 @@
     <button @click="goList">跳到列表</button>
     <button @click="params">传递参数</button>
     <footer-vue></footer-vue>
-  </div>-->
-  <div>
+
     <header-vue></header-vue>
     <router-view name="list"></router-view>
     <router-view name="detail"></router-view>
+    <router-view></router-view>
     <footer-vue></footer-vue>
+  </div>-->
+  <div>
+    <button @click="sent">发请求</button>
   </div> 
 </template>
 
@@ -124,8 +127,9 @@ export default {
     //是一个函数
     return {
       // 是一个对象，存放数据的地方
-      value: true
+      data:[]
         /*
+        value: true
         text: "我是 v-text",
         html: `
             <ul>
@@ -197,6 +201,9 @@ export default {
     },
     params: function () {
       this.$router.push({ name: 'list', query: { id: '这是一个id' } })
+    },
+    sent: function () {
+      this.$axios.get('/#/body')
     }
   },
   filters: {
@@ -210,6 +217,31 @@ export default {
   // 组件创建后，数据已经完成初始化，但是 DOM 还未生成
   created() {  // 事件的处理函数（created）
     // console.log('created:', this.$refs.myDiv)
+
+    // get 请求
+    // this.$http.get('/')
+    // .then(res => {
+    //   this.data = res.body
+    // }, err => {
+    //   console.log(err)
+    // })
+
+    // post 请求
+    // this.$http.post('/', {content: '内容'}, {emulateJSON: true})
+    // .then(res => {
+    //   this.data = res.body
+    // }, err => {
+    //   console.log(err)
+    // })
+
+    // axios 拦截器对每一次请求都有效
+    this.$axios.get('/#/body')
+    .then(res => {
+      console.log(res)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   // 数据装载 DOM 上后，将数据渲染到 DOM 中，DOM 已经生成
   mounted() {

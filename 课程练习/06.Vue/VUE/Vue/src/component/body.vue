@@ -1,7 +1,10 @@
 <template>
   <div>
-    中间组件
-    {{ texttwo }}
+    <router-link :to="{ name:'body.music' }">音乐</router-link>
+    <router-link :to="{ name:'body.movie' }">电影</router-link>
+    <router-view></router-view>
+    <!-- 中间组件 -->
+    <!-- {{ texttwo }} -->
   </div>
 </template>
 

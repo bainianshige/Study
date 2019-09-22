@@ -317,20 +317,20 @@ export default {
 
 + 在 vue-router 中，有两大对象被挂载到了 this 实例中
 + $route(只读、具备信息的对象)、 $router(具备功能函数)
-+ 查询字符串的方法(类似 get 传参)
++ 查询字符串的方法(类似 get 传参  -> #/detail?id=index&age=2)
   + 1.跳转配置
-  +  `<router-link :to{ name: 'detail', query:{id: index} }></router-link>`
+  +  `<router-link :to{ name: 'detail', query:{id: index, age: 2} }></router-link>`
   + 2.更改路由配置(查询字符串的方式不用改 path)
   + `{ name: 'detail', path: '/detail', component: Detail }`
   + 3.获取路由参数
-  + `this.$route.query.id`
-+ path 方法(类似 post 传参)
+  + `this.$route.query.id||age`
++ path 方法(类似 post 传参 ->  #/detail/index/2 )
   - 1.跳转配置
-  -  `<router-link :to{ name: 'detail', params:{id: index} }></router-link>`
+  -  `<router-link :to{ name: 'detail', params:{id: index, age: 2} }></router-link>`
   - 2.更改路由配置(params 需要在路由上加上/:id)
   - `{ name: 'detail', path: '/detail/:id', component: Detail }`
   - 3.获取路由参数
-  - `this.$route.params.id`
+  - `this.$route.params.id||age`
 
 ### 编程导航
 
@@ -399,7 +399,113 @@ export default {
 
 ### 嵌套路由
 
++ 用单页实现多页应用，复杂的嵌套路由
 
++ 视图包含视图
+
++ 路由父子级关系路由
+
+  ```javascript
+  { name:'父路由名称', path:'父路由路径', component: 父路由模板, childre:[
+      // 子路由路径不加 / 是相对路径，加 / 是绝对路径
+      {name:'父路由名称.子路由名称', path:'子路由路径', component: 子路由模板}
+      {name:'父路由名称.子路由名称', path:'子路由路径', component: 子路由模板}
+  ] }
+  ```
+
+  
+
+## vue-resource
+
++ 安装
+
++ ```shell
+  cnpm i vue-resource -S
+  ```
+
++ options 预检请求，是当浏览器发现跨域 + application/json 的请求，就会自动发起的请求
+
+  + 并且发起的时候携带一个 content-type 的头
+
++ ```javascript
+  this.$http.post('/', {content: '内容'}, {emulateJSON: true})
+      .then(res => {
+        this.data = res.body
+      }, err => {
+        console.log(err)
+      })
+  ```
+
+## axios
+
++ [github](https://github.com/axios/axios)
++ [中文文档](https://www.kancloud.cn/yunye/axios/234845)
++ post 请求的时候，如果数据是字符串 默认头就是键值对，否则是对象 ->  application/json
++ this.$axios.get(url, options)
++ this.$sxios.post(url, data, options)
+
+### optios 默认属性
+
++ options: { params:{id:1}//查询字符串 , headers:{'content-type':'xxxx'} }
++ 全局默认设置:  Axios.defaults.baseURL = 'xxx'
+  + options: headers、baseURL、params
++ 针对当前一次请求的相关设置
+  + 直接在当前请求中添加配置
+
+###  合并请求
+
++ 将两个请求一起发送，只要有一个失败，就算失败，成功只有是全体成功
+
++ ```javascript
+  function getMsg(res1, res2){
+      console.log(res1)
+      console.log(res2)
+  }
+  this.$axios.all([
+      this.$axios.post('/路径', 'content=内容'),
+      this.$axios.get('路径')
+  ])
+  // 分发响应
+  .then(this.$axios.spread(getMsg))
+  .catch(err => {
+      console.log(err)
+  })
+  ```
+
++ axios.all([请求1,请求2])
+  + 分发响应  axios.spread(fn)
+  + fn  对应参数(res)哈请求顺序一致
++ 应用场景：
+  
+  + 必须保证两次请求都成功，比如，分头获取省、市的数据
+
+### 拦截器
+
++ 过滤，在每一次请求与响应中、添油加醋
++ `axios.interceptors.request.use(fn)`  在请求之前
++ function(config){ config.headers = { xxx } }    config 相当于 options 对象
++ 请求设置
+  + 默认设置 defaults 范围广、权力小
+  + 单个请求设置 options get(url, options)  范围小、权力中
+  + 拦截器 范围广、权重高
+
+### token
+
++ cookie 和 session 的机制，cookie 自带一个字符串
++ cookie 只能在浏览器中使用
++ 移动端原生应用，也可以使用 http 协议
+  + 可以加自定义的头、原生应用没有 cookie
++ 对于三端来讲，token 可以作为类似 cookie 的使用，并且可以通用
++ 拦截器可以用在添加 token 上
+
+### 监视
+
++ watch 可以对(单个)变量进行监视，也可以深度监视
++ 计算属性 computed 可以监视多个值，并且指定返回数据，并且可以显示在页面
++ 都是 options 中的跟属性
+  + watch 监视单个
+  + computed 可以监视多个 this 相关属性值的改变，如果和原值一样
+  + 不会触发函数的掉用，并且可以返回对象
 
 ## 其他
 
